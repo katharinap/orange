@@ -1,0 +1,2 @@
+class SitUp < Exercise
+end

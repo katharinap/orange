@@ -9,6 +9,9 @@ class User < ApplicationRecord
               with: /\A[a-zA-Z0-9_\.]*\z/,
               message: "Can't contain invalid characters"
             }
+
+  has_many :sit_ups
+  has_many :push_ups
   
   def login=(login)
     @login = login

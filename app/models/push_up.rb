@@ -1,0 +1,2 @@
+class PushUp < Exercise
+end

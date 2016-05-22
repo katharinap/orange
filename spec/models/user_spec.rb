@@ -78,4 +78,14 @@ RSpec.describe User, :type => :model do
       end
     end
   end
+
+  describe 'exercises' do
+    it 'assigns the push/sit-ups' do
+      user = create(:user)
+      create_list(:sit_up, 3, user: user)
+      create_list(:push_up, 5, user: user)
+      expect(user.sit_ups.count).to eq(3)
+      expect(user.push_ups.count).to eq(5)
+    end
+  end
 end
