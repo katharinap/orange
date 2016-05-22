@@ -14,7 +14,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Exercise, :type => :model do
+RSpec.describe Exercise, type: :model do
   describe 'new' do
     it 'is invalid with a negative duration' do
       sit_up = build(:sit_up, duration: -4)

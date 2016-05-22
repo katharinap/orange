@@ -25,29 +25,31 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :username, uniqueness: true,
-            format: {
-              with: /\A[a-zA-Z0-9_\.]*\z/,
-              message: "Can't contain invalid characters"
-            }
+                       format: {
+                         with: /\A[a-zA-Z0-9_\.]*\z/,
+                         message: "Can't contain invalid characters"
+                       }
 
   has_many :sit_ups
   has_many :push_ups
-  
-  def login=(login)
-    @login = login
-  end
+
+  attr_writer :login
 
   def login
-    @login || self.username || self.email
+    @login || username || email
   end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_hash).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+    login = conditions.delete(:login)
+    if login
+      # rubocop:disable Metrics/LineLength
+      where(conditions.to_hash)
+        .find_by(['lower(username) = :value OR lower(email) = :value', { value: login.downcase }])
+      # rubocop:enable Metrics/LineLength
+    elsif conditions.key?(:username) || conditions.key?(:email)
       conditions[:email].downcase! if conditions[:email]
-      where(conditions.to_hash).first
+      find_by(conditions.to_hash)
     end
-  end  
+  end
 end

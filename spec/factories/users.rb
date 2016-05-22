@@ -26,11 +26,11 @@ FactoryGirl.define do
   sequence :username do |n|
     "user#{n}"
   end
-  
+
   factory :user do
     email
     username
-    password               "password"
-    password_confirmation  "password"
+    password               'password'
+    password_confirmation  'password'
   end
 end

@@ -20,22 +20,22 @@
 
 require 'rails_helper'
 
-RSpec.describe User, :type => :model do
-  describe "Validations" do
-    context "on a new user" do
-      it "should not be valid without a password" do
+RSpec.describe User, type: :model do
+  describe 'Validations' do
+    context 'on a new user' do
+      it 'should not be valid without a password' do
         user = build(:user, password: nil, password_confirmation: nil)
         expect(user).not_to be_valid
       end
 
-      it "should be not be valid with a short password" do
+      it 'should be not be valid with a short password' do
         user = build(:user, password: 'short', password_confirmation: 'short')
         expect(user).not_to be_valid
         expect(user.errors.keys).to eq([:password])
         expect(user.errors[:password].first).to match(/too short/)
       end
 
-      it "should not be valid with a confirmation mismatch" do
+      it 'should not be valid with a confirmation mismatch' do
         user = build(:user, password: 'shortpassword', password_confirmation: 'longpassword')
         expect(user).not_to be_valid
         expect(user.errors.keys).to eq([:password_confirmation])
@@ -54,30 +54,30 @@ RSpec.describe User, :type => :model do
         expect(user).not_to be_valid
         expect(user.errors.keys).to eq([:email])
         expect(user.errors[:email].first).to match(/is invalid/)
-      end        
+      end
     end
 
-    context "on an existing user" do
-      it "should be valid with no changes" do
+    context 'on an existing user' do
+      it 'should be valid with no changes' do
         user = create(:user)
         expect(user).to be_valid
       end
 
-      it "should not be valid with an empty password" do
+      it 'should not be valid with an empty password' do
         user = create(:user)
-        user.password = user.password_confirmation = ""
+        user.password = user.password_confirmation = ''
         expect(user).not_to be_valid
         expect(user.errors.keys).to eq([:password])
         expect(user.errors[:password].first).to match(/can't be blank/)
       end
 
-      it "should be valid with a new (valid) password" do
+      it 'should be valid with a new (valid) password' do
         user = create(:user)
-        user.password = user.password_confirmation = "new password"
+        user.password = user.password_confirmation = 'new password'
         expect(user).to be_valid
       end
 
-      it "should be invalid if the new email is already taken" do
+      it 'should be invalid if the new email is already taken' do
         user1 = create(:user, email: 'alice@example.com')
         user2 = create(:user, email: 'bob@example.com')
         expect(user1).to be_valid
@@ -87,7 +87,7 @@ RSpec.describe User, :type => :model do
         expect(user2.errors[:email].first).to match(/has already been taken/)
       end
 
-      it "should be invalid if the new email is already taken" do
+      it 'should be invalid if the new email is already taken' do
         user1 = create(:user, username: 'alice')
         user2 = create(:user, username: 'bob')
         expect(user1).to be_valid

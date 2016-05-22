@@ -1,7 +1,18 @@
-inherit_from: .rubocop_todo.yml
 AllCops:
   Include:
     - Rakefile
     - config.ru
   Exclude:
-    - db/schema.rb
+    - 'bin/**/*'
+    - 'db/**/*'
+
+Metrics/LineLength:
+  Exclude:
+    - Rakefile
+    - config/puma.rb
+    - 'config/initializers/**/*'
+    - 'config/environments/**/*'
+    - 'spec/**/*'
+
+Style/Documentation:
+  Enabled: false
