@@ -4,7 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+  validates :username, uniqueness: true,
+            format: {
+              with: /\A[a-zA-Z0-9_\.]*\z/,
+              message: "Can't contain invalid characters"
+            }
   
   def login=(login)
     @login = login
