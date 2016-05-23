@@ -1,6 +1,8 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "bootstrap": "4.0.0-alpha.2"
+    "bootstrap": "4.0.0-alpha.2",
+    "jquery-ui": "latest",
+    "tether": "latest"
   }
 }

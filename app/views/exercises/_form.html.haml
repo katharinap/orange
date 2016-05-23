@@ -1,11 +1,15 @@
 = simple_form_for exercise do |f|
+  = f.input :type, as: :hidden
+  = f.input :user_id, as: :hidden
   .form-inputs
-    = f.input :repetitions, required: true
-    = f.input :duration
-    = f.input :date
-    = f.input :type, as: :hidden
-    = f.input :user_id, as: :hidden
+    .row
+      .col-md-4
+        = f.input :repetitions, required: true
+      .col-md-4
+        = f.input :duration
+    .row
+      = f.input :date, as: :date_picker
   .form-actions
     = f.button :submit
     - if exercise.persisted?
-      = link_to 'Cancel', :back
+      = link_to 'Cancel', :back, class: 'btn btn-secondary'
