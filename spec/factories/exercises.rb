@@ -18,12 +18,14 @@ FactoryGirl.define do
     type 'SitUp'
     duration 120
     repetitions 30
+    date Date.new(2016, 1, 1)
   end
 
   factory :push_up do
     user
     type 'PushUp'
     duration 120
-    repetitions 30
+    repetitions 20
+    date Date.new(2016, 1, 1)
   end
 end

@@ -1,13 +1,13 @@
 %h1= @user.username
 
-.push-ups
-  = render partial: 'exercises', locals: { exercises: @push_ups }
+#push-ups.exercises
+  = render partial: 'exercises', locals: { exercises: @push_ups, table_id: 'push-ups-table' }
 
-  .new-push-up
+  #new-push-up.new-exercise
     = render partial: 'exercises/form', locals: { exercise: @new_push_up }
   
-.sit-ups
-  = render partial: 'exercises', locals: { exercises: @sit_ups }
+#sit-ups.exercises
+  = render partial: 'exercises', locals: { exercises: @sit_ups, table_id: 'sit-ups-table' }
 
-  .new-sit-up
+  #new-sit-up.new-exercise
     = render partial: 'exercises/form', locals: { exercise: @new_sit_up }
