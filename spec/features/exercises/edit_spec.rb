@@ -12,9 +12,7 @@ RSpec.describe 'the signin process', type: :feature do
     visit edit_exercise_path(@user.push_ups.first)
     fill_in 'Repetitions', with: 13
     fill_in 'Duration', with: 140
-    select '2016', from: 'exercise_date_1i'
-    select 'February', from: 'exercise_date_2i'
-    select '2', from: 'exercise_date_3i'
+    fill_in 'Date', with: '2016-02-02'
     click_button 'Update Exercise'
     # expect(page).to have_content 'Exercise was updated'
     expect(current_path).to eq(user_path(@user))
@@ -28,9 +26,7 @@ RSpec.describe 'the signin process', type: :feature do
     visit edit_exercise_path(@user.sit_ups.first)
     fill_in 'Repetitions', with: 23
     fill_in 'Duration', with: 150
-    select '2016', from: 'exercise_date_1i'
-    select 'March', from: 'exercise_date_2i'
-    select '2', from: 'exercise_date_3i'
+    fill_in 'Date', with: '2016-03-02'
     click_button 'Update Exercise'
     # expect(page).to have_content 'Exercise was updated'
     expect(current_path).to eq(user_path(@user))

@@ -1,13 +1,15 @@
-%h1= @user.username
+%ul.nav.nav-tabs{ role: 'tablist' }
+  %li.nav-item
+    = link_to 'Push-Ups', '#push-ups', class: 'nav-link active', data: { toggle: 'tab' }, role: 'tab'
+  %li.nav-item
+    = link_to 'Sit-Ups', '#sit-ups', class: 'nav-link', data: { toggle: 'tab' }, role: 'tab'
 
-#push-ups.exercises
-  = render partial: 'exercises', locals: { exercises: @push_ups, table_id: 'push-ups-table' }
-
-  #new-push-up.new-exercise
-    = render partial: 'exercises/form', locals: { exercise: @new_push_up }
-  
-#sit-ups.exercises
-  = render partial: 'exercises', locals: { exercises: @sit_ups, table_id: 'sit-ups-table' }
-
-  #new-sit-up.new-exercise
-    = render partial: 'exercises/form', locals: { exercise: @new_sit_up }
+.tab-content
+  .tab-pane.active#push-ups{ role: 'tabpanel' }
+    #new-push-up.new-exercise.pull-md-right
+      = render partial: 'add_exercise', locals: { exercise: @new_push_up, title: 'Add Push-Up' }
+    = render partial: 'exercises', locals: { exercises: @push_ups, table_id: 'push-ups-table' }
+  .tab-pane#sit-ups{ role: 'tabpanel' }
+    #new-sit-up.new-exercise.pull-md-right
+      = render partial: 'add_exercise', locals: { exercise: @new_sit_up, title: 'Add Sit-Up' }
+    = render partial: 'exercises', locals: { exercises: @sit_ups, table_id: 'sit-ups-table' }

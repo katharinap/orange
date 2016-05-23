@@ -2,14 +2,10 @@
   = f.input :type, as: :hidden
   = f.input :user_id, as: :hidden
   .form-inputs
-    .row
-      .col-md-4
-        = f.input :repetitions, required: true
-      .col-md-4
-        = f.input :duration
-    .row
-      = f.input :date, as: :date_picker
+    = f.input :repetitions, required: true
+    = f.input :duration
+    = f.input :date, as: :date_picker
   .form-actions
-    = f.button :submit
+    = f.button :submit, class: 'btn btn-primary'
     - if exercise.persisted?
       = link_to 'Cancel', :back, class: 'btn btn-secondary'

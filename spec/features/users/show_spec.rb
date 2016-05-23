@@ -21,9 +21,7 @@ RSpec.describe 'the signin process', type: :feature do
     within('#push-ups') do
       fill_in 'Repetitions', with: 17
       fill_in 'Duration', with: 180
-      select '2016', from: 'exercise_date_1i'
-      select 'January', from: 'exercise_date_2i'
-      select '2', from: 'exercise_date_3i'
+      fill_in 'Date', with: '2016-01-02'
       click_button 'Create Exercise'
     end
     expect(page.all('table#push-ups-table tbody tr').count).to eq(8)
@@ -37,9 +35,7 @@ RSpec.describe 'the signin process', type: :feature do
     within('#sit-ups') do
       fill_in 'Repetitions', with: 27
       fill_in 'Duration', with: 150
-      select '2016', from: 'exercise_date_1i'
-      select 'February', from: 'exercise_date_2i'
-      select '2', from: 'exercise_date_3i'
+      fill_in 'Date', with: '2016-02-02'
       click_button 'Create Exercise'
     end
     expect(page.all('table#sit-ups-table tbody tr').count).to eq(6)

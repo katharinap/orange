@@ -3,5 +3,6 @@
   %td= exercise.repetitions
   %td= exercise.duration
   %td
-    = link_to 'Edit', edit_exercise_path(exercise)
-    = link_to 'Delete', exercise_path(exercise), method: :delete
+    .btn-group
+      = link_to 'Edit', edit_exercise_path(exercise), class: 'btn btn-secondary'
+      = link_to 'Delete', exercise_path(exercise), method: :delete, class: 'btn btn-danger'
