@@ -7,3 +7,5 @@
     = f.input :user_id, as: :hidden
   .form-actions
     = f.button :submit
+    - if exercise.persisted?
+      = link_to 'Cancel', :back
