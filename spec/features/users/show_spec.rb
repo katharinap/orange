@@ -18,7 +18,7 @@ RSpec.describe 'the signin process', type: :feature do
 
   it 'allows to create a new push-up entry' do
     visit user_path(@user)
-    within('#push-ups') do
+    within('#new-push-up') do
       fill_in 'Repetitions', with: 17
       fill_in 'Duration', with: 180
       fill_in 'Date', with: '2016-01-02'
@@ -30,9 +30,25 @@ RSpec.describe 'the signin process', type: :feature do
     expect(@user.push_ups.last.date).to eq(Date.new(2016, 1, 2))
   end
 
+  it 'allows to edit an existing push-up entry' do
+    visit user_path(@user)
+    exercise = @user.push_ups.first
+    within("#exercise-#{exercise.id}") do
+      fill_in 'Repetitions', with: 17
+      fill_in 'Duration', with: 180
+      fill_in 'Date', with: '2016-01-02'
+      click_button 'Update Exercise'
+    end
+    expect(page.all('table#push-ups-table tbody tr').count).to eq(7)
+    exercise = Exercise.find(exercise.id)
+    expect(exercise.repetitions).to eq(17)
+    expect(exercise.duration).to eq(180)
+    expect(exercise.date).to eq(Date.new(2016, 1, 2))
+  end
+
   it 'allows to create a new sit-up entry' do
     visit user_path(@user)
-    within('#sit-ups') do
+    within('#new-sit-up') do
       fill_in 'Repetitions', with: 27
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-02'
@@ -42,5 +58,21 @@ RSpec.describe 'the signin process', type: :feature do
     expect(@user.sit_ups.last.repetitions).to eq(27)
     expect(@user.sit_ups.last.duration).to eq(150)
     expect(@user.sit_ups.last.date).to eq(Date.new(2016, 2, 2))
+  end
+
+  it 'allows to edit an existing push-up entry' do
+    visit user_path(@user)
+    exercise = @user.sit_ups.first
+    within("#exercise-#{exercise.id}") do
+      fill_in 'Repetitions', with: 17
+      fill_in 'Duration', with: 180
+      fill_in 'Date', with: '2016-01-02'
+      click_button 'Update Exercise'
+    end
+    expect(page.all('table#push-ups-table tbody tr').count).to eq(7)
+    exercise = Exercise.find(exercise.id)
+    expect(exercise.repetitions).to eq(17)
+    expect(exercise.duration).to eq(180)
+    expect(exercise.date).to eq(Date.new(2016, 1, 2))
   end
 end

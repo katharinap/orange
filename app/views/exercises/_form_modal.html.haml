@@ -1,0 +1,12 @@
+- id = exercise_modal_id(exercise, title)
+.modal.fade{ id: id }
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { label: 'Close' }}
+          %span{ aria: { hidden: true }}
+            = '&times'.html_safe
+        %h4{ class: 'modal-title' }
+          = title
+      .modal-body
+        = render partial: 'exercises/form', locals: { exercise: exercise }

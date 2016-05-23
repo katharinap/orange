@@ -1,14 +1,3 @@
-- id = title.parameterize
-.modal.fade{ id: id }
-  .modal-dialog{ role: 'document' }
-    .modal-content
-      .modal-header
-        %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { label: 'Close' }}
-          %span{ aria: { hidden: true }}
-            = '&times'.html_safe
-        %h4{ class: 'modal-title' }
-          = title
-      .modal-body
-        = render partial: 'exercises/form', locals: { exercise: exercise }
-%button{ type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: "##{id}" }}
+= render partial: 'exercises/form_modal', locals: { exercise: exercise, title: title }
+%button{ type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: "##{exercise_modal_id(exercise, title)}" }}
   = title
