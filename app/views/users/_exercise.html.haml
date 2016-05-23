@@ -1,0 +1,7 @@
+%tr
+  %td= l exercise.date
+  %td= exercise.repetitions
+  %td= exercise.duration
+  %td
+    = link_to 'Edit', edit_exercise_path(exercise)
+    = link_to 'Delete', exercise_path(exercise), method: :delete

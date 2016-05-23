@@ -13,4 +13,7 @@
 #
 
 class PushUp < Exercise
+  def self.model_name
+    Exercise.model_name
+  end
 end

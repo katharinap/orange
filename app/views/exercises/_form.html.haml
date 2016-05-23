@@ -1,0 +1,9 @@
+= simple_form_for exercise do |f|
+  .form-inputs
+    = f.input :repetitions, required: true
+    = f.input :duration
+    = f.input :date
+    = f.input :type, as: :hidden
+    = f.input :user_id, as: :hidden
+  .form-actions
+    = f.button :submit

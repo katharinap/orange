@@ -1,0 +1,13 @@
+%h1= @user.username
+
+.push-ups
+  = render partial: 'exercises', locals: { exercises: @push_ups }
+
+  .new-push-up
+    = render partial: 'exercises/form', locals: { exercise: @new_push_up }
+  
+.sit-ups
+  = render partial: 'exercises', locals: { exercises: @sit_ups }
+
+  .new-sit-up
+    = render partial: 'exercises/form', locals: { exercise: @new_sit_up }
