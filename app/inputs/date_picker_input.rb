@@ -3,8 +3,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
     value = input_html_options[:value]
     value ||= object.send(attribute_name) if object.respond_to? attribute_name
     input_html_options[:value] ||= I18n.localize(value) if value.present?
-    input_html_classes << 'form-control'
-    input_html_classes << 'datepicker'
+    input_html_classes << 'datepicker form-control'
 
     super # leave StringInput do the real rendering
   end
