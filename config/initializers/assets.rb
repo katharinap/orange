@@ -10,6 +10,6 @@ Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'bo
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.precompile << Proc.new do |path|
-  path =~ /font-awesome\/fonts/ and File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff'])
+Rails.application.config.assets.precompile << proc do |path|
+  path =~ %r{font-awesome/fonts} && File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff'])
 end
