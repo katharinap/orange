@@ -11,16 +11,23 @@
   <body>
     <div id="content" class="container-fluid">
       <% if user_signed_in? %>
-      <nav id="navigation-bar">
+      <nav class="page-navigation">
 	<ul class="nav">
 	  <li class="nav-item dropdown">
-	    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-	      Signed in as <%= current_user.username %>
+	    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+	      <%= glyph 'user fa-fw' %>
+	      <%= current_user.username %>
 	    </a>
 	    <div class="dropdown-menu">
-	      <%= link_to 'Account', edit_user_registration_path, class: 'dropdown-item' %>
+	      <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+	      <%= glyph 'cog fa-fw' %>
+	      Account
+	      <% end %>
 	      <div class="dropdown-divider"></div>
-	      <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+	      <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
+	      <%= glyph 'sign-out fa-fw' %>
+	      Sign Out
+	      <% end %>
 	    </div>
 	  </li>
 	</ul>

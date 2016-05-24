@@ -3,6 +3,7 @@
   "dependencies": {
     "bootstrap": "4.0.0-alpha.2",
     "jquery-ui": "latest",
-    "tether": "latest"
+    "tether": "latest",
+    "font-awesome": "latest"
   }
 }
