@@ -9,9 +9,9 @@
   </head>
 
   <body>
-    <div id="content" class="container-fluid">
+    <header>
       <% if user_signed_in? %>
-      <nav class="page-navigation">
+      <nav class="page-navigationbar">
 	<ul class="nav">
 	  <li class="nav-item dropdown">
 	    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
@@ -19,11 +19,15 @@
 	      <%= current_user.username %>
 	    </a>
 	    <div class="dropdown-menu">
+	      <%= link_to user_path(current_user), class: 'dropdown-item' do %>
+	      <%= glyph 'line-chart fa-fw' %>
+	      Overview
+	      <% end %>
+	      <div class="dropdown-divider"></div>
 	      <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
 	      <%= glyph 'cog fa-fw' %>
 	      Account
 	      <% end %>
-	      <div class="dropdown-divider"></div>
 	      <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
 	      <%= glyph 'sign-out fa-fw' %>
 	      Sign Out
@@ -33,7 +37,7 @@
 	</ul>
       </nav>
       <% end %>
-    </div>
+    </header>
     
     <div id="container">
       <% flash.each do |key, value| %>
