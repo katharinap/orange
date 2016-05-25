@@ -33,7 +33,7 @@ RSpec.describe 'the signin process', type: :feature do
   it 'allows to edit an existing push-up entry' do
     visit user_path(@user)
     exercise = @user.push_ups.first
-    within("#exercise-#{exercise.id}") do
+    within("#modal-exercise-#{exercise.id}") do
       fill_in 'Repetitions', with: 17
       fill_in 'Duration', with: 180
       fill_in 'Date', with: '2016-01-02'
@@ -44,6 +44,16 @@ RSpec.describe 'the signin process', type: :feature do
     expect(exercise.repetitions).to eq(17)
     expect(exercise.duration).to eq(180)
     expect(exercise.date).to eq(Date.new(2016, 1, 2))
+  end
+
+  it 'allows to delete an existing push-up entry' do
+    visit user_path(@user)
+    exercise = @user.push_ups.last
+    within("#exercise-#{exercise.id}") do
+      click_link 'Delete'
+    end
+    expect(page.all('table#push-ups-table tbody tr').count).to eq(6)
+    expect { Exercise.find(exercise.id) }.to raise_exception(ActiveRecord::RecordNotFound)
   end
 
   it 'allows to create a new sit-up entry' do
@@ -63,7 +73,7 @@ RSpec.describe 'the signin process', type: :feature do
   it 'allows to edit an existing push-up entry' do
     visit user_path(@user)
     exercise = @user.sit_ups.first
-    within("#exercise-#{exercise.id}") do
+    within("#modal-exercise-#{exercise.id}") do
       fill_in 'Repetitions', with: 17
       fill_in 'Duration', with: 180
       fill_in 'Date', with: '2016-01-02'
@@ -74,5 +84,15 @@ RSpec.describe 'the signin process', type: :feature do
     expect(exercise.repetitions).to eq(17)
     expect(exercise.duration).to eq(180)
     expect(exercise.date).to eq(Date.new(2016, 1, 2))
+  end
+
+  it 'allows to delete an existing sit-up entry' do
+    visit user_path(@user)
+    exercise = @user.sit_ups.last
+    within("#exercise-#{exercise.id}") do
+      click_link 'Delete'
+    end
+    expect(page.all('table#sit-ups-table tbody tr').count).to eq(4)
+    expect { Exercise.find(exercise.id) }.to raise_exception(ActiveRecord::RecordNotFound)
   end
 end
