@@ -1,8 +1,0 @@
-%tr{ id: "exercise-#{exercise.id}" }
-  %td= l exercise.date
-  %td= exercise.repetitions
-  %td= exercise.duration
-  %td
-    .btn-group
-      = link_to 'Edit', "#", class: "btn btn-secondary", data: { toggle: 'modal', target: "##{exercise_modal_id(exercise)}" }
-      = link_to 'Delete', exercise_path(exercise), method: :delete, class: 'btn btn-danger'
