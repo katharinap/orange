@@ -1,0 +1,6 @@
+$("#exercise-form").html("<%= escape_javascript(render partial: 'form', locals: { exercise: @exercise }) %>");
+$("input.date_picker").datepicker({
+  dateFormat: 'yy-mm-dd'
+});
+$("#exercise-modal").modal('show');
+

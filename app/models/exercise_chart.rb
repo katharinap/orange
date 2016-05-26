@@ -1,5 +1,5 @@
 class ExerciseChart < LazyHighCharts::HighChart
-  include ExercisesHelper
+  delegate :url_helpers, to: 'Rails.application.routes'
 
   def initialize(*exercise_arrays)
     super()
@@ -34,7 +34,7 @@ class ExerciseChart < LazyHighCharts::HighChart
       {
         x: milliseconds(e.date),
         y: e.repetitions,
-        modal: exercise_modal_id(e)
+        url: url_helpers.exercise_path(e)
       }
     end
   end

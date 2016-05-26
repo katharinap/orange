@@ -1,6 +1,12 @@
 class ExercisesController < ApplicationController
   before_action :set_exercise, except: %i(create)
 
+  def show
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def update
     if @exercise.update(exercise_params)
       redirect_to user_path(current_user, notice: 'Exercise was updated.')

@@ -1,11 +1,20 @@
+#graph.big-plot
+  = high_chart("plot", @chart) do |chart|
+    = raw "options.plotOptions.series.point.events.click = function() { $.ajax({ url: this.options.url }); }"
+
 #new-push-up.new-exercise.pull-md-right
   = render partial: 'exercises/add', locals: { exercise: @new_push_up, title: 'Add Push-Up' }
 #new-sit-up.new-exercise.pull-md-right
   = render partial: 'exercises/add', locals: { exercise: @new_sit_up, title: 'Add Sit-Up' }
 
-= render partial: 'exercises/form_modal', collection: @push_ups, as: :exercise, locals: { title: 'Edit' }
-= render partial: 'exercises/form_modal', collection: @sit_ups, as: :exercise, locals: { title: 'Edit' }
-
-#graph.big-plot
-  = high_chart("plot", @chart) do |chart|
-    = raw "options.plotOptions.series.point.events.click = function() { $('#'+this.options.modal).modal('show'); }"
+#exercise-modal.modal.fade
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { label: 'Close' }}
+          %span{ aria: { hidden: true }}
+            = '&times'.html_safe
+        %h4{ class: 'modal-title' }
+          Edit
+      .modal-body
+        #exercise-form
