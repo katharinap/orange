@@ -19,7 +19,7 @@ class ExerciseChart < LazyHighCharts::HighChart
 
   def add_series(exercises)
     return if exercises.empty?
-    series(type: 'line',
+    series(type: 'column',
            name: label_name(exercises.first),
            data: exercise_data(exercises),
            allowPointSelect: true)
