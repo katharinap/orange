@@ -39,7 +39,7 @@ class ExerciseChart < LazyHighCharts::HighChart
   end
 
   def milliseconds(date)
-    date_time = DateTime.new(date.year, date.month, date.day)
+    date_time = date.to_datetime
     date_time.to_i * 1000
   end
 end
