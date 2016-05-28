@@ -1,12 +1,11 @@
 class ExerciseChart < LazyHighCharts::HighChart
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  def initialize(*exercise_arrays)
+  def initialize(user)
     super()
     set_options
-    exercise_arrays.each do |exercises|
-      add_series(exercises)
-    end
+    add_series(user.sit_ups.order(:date))
+    add_series(user.push_ups.order(:date))
   end
 
   private

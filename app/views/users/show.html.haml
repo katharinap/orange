@@ -1,11 +1,11 @@
+#new-push-up.new-exercise.pull-md-right
+  = link_to 'Add Push-Up', new_exercise_path(type: 'PushUp'), remote: true, class: 'btn btn-secondary'
+#new-sit-up.new-exercise.pull-md-right
+  = link_to 'Add Sit-Up', new_exercise_path(type: 'SitUp'), remote: true, class: 'btn btn-secondary'
+
 #graph.big-plot
   = high_chart("plot", @chart) do |chart|
-    = raw "options.plotOptions.series.point.events.click = function() { $.ajax({ url: this.options.url }); }"
-
-#new-push-up.new-exercise.pull-md-right
-  = render partial: 'exercises/add', locals: { exercise: @new_push_up, title: 'Add Push-Up' }
-#new-sit-up.new-exercise.pull-md-right
-  = render partial: 'exercises/add', locals: { exercise: @new_sit_up, title: 'Add Sit-Up' }
+    = raw "options.plotOptions.series.point.events.click = function() { showModal(this); }"
 
 #exercise-modal.modal.fade
   .modal-dialog{ role: 'document' }
