@@ -8,7 +8,7 @@ class ExercisesController < ApplicationController
   end
 
   def new
-    @exercise = Exercise.new(type: params[:type], user: current_user)
+    @exercise = Exercise.new(type: params[:type], user: current_user, date: Date.today)
     respond_to do |format|
       format.js { render :show }
     end
