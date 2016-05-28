@@ -16,7 +16,7 @@ RSpec.describe 'exercises overview', type: :feature do
   #   #   expect(elm).not_to be_nil
   #   # end
   # end
-  
+
   it 'allows to create a new push-up entry', js: true do
     visit user_path(@user)
     click_link 'Add Push-Up'
@@ -24,7 +24,7 @@ RSpec.describe 'exercises overview', type: :feature do
       fill_in 'Repetitions', with: 17
       fill_in 'Duration', with: 180
       fill_in 'Date', with: '2016-01-01'
-      page.execute_script %Q{ $("a.ui-state-default:contains('28')").trigger("click") }
+      page.execute_script %{ $("a.ui-state-default:contains('28')").trigger("click") }
       click_button 'Create Exercise'
     end
     expect(@user.push_ups.count).to eq(8)
@@ -32,7 +32,7 @@ RSpec.describe 'exercises overview', type: :feature do
     expect(@user.push_ups.last.duration).to eq(180)
     expect(@user.push_ups.last.date).to eq(Date.new(2016, 1, 28))
   end
-  
+
   # it 'allows to edit an existing push-up entry' do
   #   visit user_path(@user)
   #   exercise = @user.push_ups.first
@@ -58,7 +58,7 @@ RSpec.describe 'exercises overview', type: :feature do
   #   expect(@user.push_ups.count).to eq(6)
   #   expect { Exercise.find(exercise.id) }.to raise_exception(ActiveRecord::RecordNotFound)
   # end
-  
+
   it 'allows to create a new sit-up entry', js: true do
     visit user_path(@user)
     click_link 'Add Sit-Up'
@@ -66,7 +66,7 @@ RSpec.describe 'exercises overview', type: :feature do
       fill_in 'Repetitions', with: 27
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
-      page.execute_script %Q{ $("a.ui-state-default:contains('27')").trigger("click") }
+      page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
       click_button 'Create Exercise'
     end
     expect(@user.sit_ups.count).to eq(6)
