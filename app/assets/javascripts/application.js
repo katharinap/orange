@@ -15,7 +15,6 @@
 //= require jquery-ui/ui/datepicker
 //= require tether/dist/js/tether
 //= require bootstrap/dist/js/bootstrap
-//= require turbolinks
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
 //= require_tree .
