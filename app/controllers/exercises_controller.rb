@@ -1,7 +1,7 @@
 class ExercisesController < ApplicationController
   before_action :set_exercise, except: %i(new create)
 
-  def show
+  def edit
     respond_to do |format|
       format.js
     end
@@ -10,7 +10,7 @@ class ExercisesController < ApplicationController
   def new
     @exercise = Exercise.new(type: params[:type], user: current_user, date: Date.today)
     respond_to do |format|
-      format.js { render :show }
+      format.js { render :edit }
     end
   end
 

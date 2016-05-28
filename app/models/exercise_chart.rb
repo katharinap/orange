@@ -33,7 +33,7 @@ class ExerciseChart < LazyHighCharts::HighChart
       {
         x: milliseconds(e.date),
         y: e.repetitions,
-        url: url_helpers.exercise_path(e)
+        url: url_helpers.edit_exercise_path(e)
       }
     end
   end
