@@ -13,35 +13,7 @@
     <div class="container">
       <header>
 	<% if user_signed_in? %>
-	<nav class="page-navigationbar">
-	  <ul class="nav">
-	    <li class="nav-item dropdown">
-	      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-		<%= glyph 'user fa-fw' %>
-		<%= current_user.username %>
-	      </a>
-	      <div class="dropdown-menu">
-		<%= link_to user_exercises_path(current_user), class: 'dropdown-item' do %>
-		<%= glyph 'bar-chart fa-fw' %>
-		Exercises
-		<% end %>
-		<%= link_to user_weights_path(current_user), class: 'dropdown-item' do %>
-		<%= glyph 'line-chart fa-fw' %>
-		Weight
-		<% end %>
-		<div class="dropdown-divider"></div>
-		<%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
-		<%= glyph 'cog fa-fw' %>
-		Account
-		<% end %>
-		<%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
-		<%= glyph 'sign-out fa-fw' %>
-		Sign Out
-		<% end %>
-	      </div>
-	    </li>
-	  </ul>
-	</nav>
+	<%= render partial: 'layouts/nav' %>
 	<% end %>
       </header>
     
