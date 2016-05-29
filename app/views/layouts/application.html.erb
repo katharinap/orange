@@ -22,8 +22,12 @@
 	      </a>
 	      <div class="dropdown-menu">
 		<%= link_to user_path(current_user), class: 'dropdown-item' do %>
+		<%= glyph 'bar-chart fa-fw' %>
+		Exercises
+		<% end %>
+		<%= link_to user_weights_path(current_user), class: 'dropdown-item' do %>
 		<%= glyph 'line-chart fa-fw' %>
-		Overview
+		Weight
 		<% end %>
 		<div class="dropdown-divider"></div>
 		<%= link_to edit_user_registration_path, class: 'dropdown-item' do %>

@@ -35,5 +35,10 @@ RSpec.describe Exercise, type: :model do
       push_up = build(:push_up, repetitions: 0)
       expect(push_up).not_to be_valid
     end
+
+    it 'is invalid without a date' do
+      push_up = build(:push_up, date: nil)
+      expect(push_up).not_to be_valid
+    end
   end
 end

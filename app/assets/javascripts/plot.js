@@ -1,3 +1,3 @@
-var showModal = function(exerciseObj){
-  $.ajax({ url: exerciseObj.options.url })
+var showModal = function(obj){
+  $.ajax({ url: obj.options.url })
 };

@@ -1,0 +1,18 @@
+.btn-group.new-weight.pull-md-right
+  = link_to 'Add Entry', new_user_weight_path(current_user), remote: true, class: 'btn btn-secondary', id: 'new-weight'
+
+#graph.big-plot
+  = high_chart("plot", @chart) do |chart|
+    = raw "options.plotOptions.series.point.events.click = function() { showModal(this); }"
+
+#weight-modal.modal.fade
+  .modal-dialog{ role: 'document' }
+    .modal-content
+      .modal-header
+        %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { label: 'Close' }}
+          %span{ aria: { hidden: true }}
+            = '&times'.html_safe
+        %h4{ class: 'modal-title', id: 'weight-modal-title' }
+          Edit
+      .modal-body
+        #weight-form

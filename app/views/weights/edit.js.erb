@@ -1,0 +1,6 @@
+$("#weight-form").html("<%= escape_javascript(render partial: 'form', locals: { user_stat: @user_stat }) %>");
+$("input.date_picker").datepicker({
+  dateFormat: 'yy-mm-dd'
+});
+$("#weight-modal").modal('show');
+

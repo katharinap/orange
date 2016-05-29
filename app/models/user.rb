@@ -32,8 +32,17 @@ class User < ApplicationRecord
 
   has_many :sit_ups
   has_many :push_ups
+  has_many :user_stats
 
   attr_writer :login
+
+  def current_weight
+    current_user_stat.try(:weight) || BigDecimal.new('100.0')
+  end
+
+  def current_user_stat
+    user_stats.order(:date).last
+  end
 
   def login
     @login || username || email
