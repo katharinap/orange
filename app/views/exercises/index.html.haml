@@ -1,6 +1,6 @@
 .btn-group.new-exercise.pull-md-right
-  = link_to 'Add Push-Up', new_exercise_path(type: 'PushUp'), remote: true, class: 'btn btn-secondary', id: 'new-push-up'
-  = link_to 'Add Sit-Up', new_exercise_path(type: 'SitUp'), remote: true, class: 'btn btn-secondary', id: 'new-sit-up'
+  = link_to 'Add Push-Up', new_user_exercise_path(current_user, type: 'PushUp'), remote: true, class: 'btn btn-secondary', id: 'new-push-up'
+  = link_to 'Add Sit-Up', new_user_exercise_path(current_user, type: 'SitUp'), remote: true, class: 'btn btn-secondary', id: 'new-sit-up'
 
 #graph.big-plot
   = high_chart("plot", @chart) do |chart|

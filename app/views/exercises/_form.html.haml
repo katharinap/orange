@@ -1,4 +1,6 @@
-= simple_form_for exercise do |f|
+- url = exercise.persisted? ? url_for(controller: 'exercises', action: 'update') : url_for(controller: 'exercises', action: 'create')
+- method = exercise.persisted? ? :put : :post
+= simple_form_for :exercise, url: url, method: method do |f|
   = f.input :type, as: :hidden
   = f.input :user_id, as: :hidden
   .form-inputs

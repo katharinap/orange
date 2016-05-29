@@ -1,5 +1,10 @@
 class ExercisesController < ApplicationController
-  before_action :set_exercise, except: %i(new create)
+  before_action :set_exercise, except: %i(index new create)
+
+  def index
+    @user = User.find(params[:user_id])
+    @chart = ExerciseChart.new(@user)
+  end
 
   def edit
     respond_to do |format|
@@ -18,7 +23,8 @@ class ExercisesController < ApplicationController
 
   def update
     if @exercise.update(exercise_params)
-      redirect_to user_path(current_user, notice: 'Exercise was updated.')
+      redirect_to user_exercises_path(current_user,
+                                      notice: 'Exercise was updated.')
     else
       render :edit
     end
@@ -27,15 +33,18 @@ class ExercisesController < ApplicationController
   def create
     @exercise = Exercise.new(exercise_params)
     if @exercise.save
-      redirect_to user_path(current_user, notice: 'Exercise was created.')
+      redirect_to user_exercises_path(current_user,
+                                      notice: 'Exercise was created.')
     else
-      redirect_to user_path(current_user, error: 'Failed to create exercise.')
+      redirect_to user_exercises_path(current_user,
+                                      error: 'Failed to create exercise.')
     end
   end
 
   def destroy
     @exercise.destroy
-    redirect_to user_path(current_user, notice: 'Exercise was deleted.')
+    redirect_to user_exercises_path(current_user,
+                                    notice: 'Exercise was deleted.')
   end
 
   private

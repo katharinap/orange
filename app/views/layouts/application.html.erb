@@ -21,7 +21,7 @@
 		<%= current_user.username %>
 	      </a>
 	      <div class="dropdown-menu">
-		<%= link_to user_path(current_user), class: 'dropdown-item' do %>
+		<%= link_to user_exercises_path(current_user), class: 'dropdown-item' do %>
 		<%= glyph 'bar-chart fa-fw' %>
 		Exercises
 		<% end %>

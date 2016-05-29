@@ -59,7 +59,8 @@ group :test do
   # gem 'timecop'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
+  gem "capybara-webkit"
 end
 
 group :production do
