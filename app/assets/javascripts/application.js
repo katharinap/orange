@@ -17,4 +17,6 @@
 //= require bootstrap/dist/js/bootstrap
 //= require highcharts/highcharts
 //= require highcharts/highcharts-more
+//= require moment/moment
+//= require fullcalendar/dist/fullcalendar
 //= require_tree .
