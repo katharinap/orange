@@ -32,12 +32,28 @@ if false
   end
 end
 
-if true
+if false
   date = Date.new(2016,1,1)
   weight = 140.0
   (1..10).each do |i|
     user.user_stats.create(date: date, weight: weight)
     date = date + 1.week
     weight += i.even? ? rand : rand * -1
+  end
+end
+
+if true
+  c1 = { name: 'Krav Level 1', days: [2, 3, 4, 10, 11, 16, 17, 23, 24, 25] }
+  c2 = { name: 'Krav Level 2', days: [6, 13, 20, 27, 2, 10] }
+  c3 = { name: 'Sparring', days: [5, 12, 19, 26] }
+  c3 = { name: 'JCF', days: [4, 11, 18, 25, 2] }
+  c4 = { name: 'Pit', days: [9] }
+  c5 = { name: 'Krav Weapons', days: [6, 13, 20, 27]}
+
+  [c1, c2, c3, c4, c5].each do |course|
+    course[:days].each do |day|
+      date = Date.new(2016, 5, day)
+      Course.create(name: course[:name], date: date, user: user)
+    end
   end
 end

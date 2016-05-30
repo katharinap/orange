@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     resources :exercises, shallow: true, except: %i(show)
     resources :weights, shallow: true, except: %i(show)
+    resources :courses, shallow: true, except: %i(show)
   end
 end

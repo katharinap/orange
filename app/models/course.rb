@@ -15,4 +15,8 @@ class Course < ApplicationRecord
 
   validates :name, presence: true
   validates :date, presence: true
+
+  def as_json(*args)
+    super.tap { |hash| hash["title"] = hash.delete "name" }
+  end
 end
