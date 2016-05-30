@@ -16,6 +16,8 @@ class Course < ApplicationRecord
   validates :name, presence: true
   validates :date, presence: true
 
+  delegate :url_helpers, to: 'Rails.application.routes'
+
   KNOWN_NAMES = [
     'Krav Level 1',
     'Krav Level 2',
@@ -27,6 +29,10 @@ class Course < ApplicationRecord
   ].freeze
 
   def as_json(*args)
+    # we can't call the url attribute just 'url' because fullcalendar
+    # automatically visits that url when this attribute is set and we
+    # get a cross-site reference error
     super.tap { |hash| hash['title'] = hash.delete 'name' }
+         .merge(edit_url: url_helpers.edit_course_path(self))
   end
 end
