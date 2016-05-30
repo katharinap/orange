@@ -28,11 +28,27 @@ class Course < ApplicationRecord
     'Other'
   ].freeze
 
+  COLORS = [
+    '#75507b',
+    '#3465a4',
+    '#f57900',
+    '#c17d11',
+    '#73d216',
+    '#cc0000',
+    '#edd400'
+  ].freeze
+
+  def color
+    idx = KNOWN_NAMES.index(name) || KNOWN_NAMES.index('Other')
+    COLORS[idx]
+  end
+
   def as_json(*args)
     # we can't call the url attribute just 'url' because fullcalendar
     # automatically visits that url when this attribute is set and we
     # get a cross-site reference error
     super.tap { |hash| hash['title'] = hash.delete 'name' }
-         .merge(edit_url: url_helpers.edit_course_path(self))
+         .merge(edit_url: url_helpers.edit_course_path(self),
+                color: color)
   end
 end
