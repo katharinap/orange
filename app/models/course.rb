@@ -16,6 +16,16 @@ class Course < ApplicationRecord
   validates :name, presence: true
   validates :date, presence: true
 
+  KNOWN_NAMES = [
+    'Krav Level 1',
+    'Krav Level 2',
+    'Sparring',
+    'Krav Weapons',
+    'JCF',
+    'Pit',
+    'Other'
+  ].freeze
+
   def as_json(*args)
     super.tap { |hash| hash['title'] = hash.delete 'name' }
   end

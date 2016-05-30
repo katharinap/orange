@@ -1,0 +1,11 @@
+- url = course.persisted? ? url_for(controller: 'courses', action: 'update') : url_for(controller: 'courses', action: 'create')
+- method = course.persisted? ? :put : :post
+= simple_form_for :course, url: url, method: method do |f|
+  = f.input :user_id, as: :hidden
+  .form-inputs
+    = f.input :name, required: true
+    = f.input :date, as: :date_picker
+  .form-actions
+    = f.button :submit, class: 'btn btn-secondary'
+    - if course.persisted?
+      = link_to 'Delete', course_path(course), method: :delete, class: 'btn btn-danger'

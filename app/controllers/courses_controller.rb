@@ -3,6 +3,7 @@ class CoursesController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
+    @course_names = Course::KNOWN_NAMES
     respond_to do |format|
       format.html
       format.json do
@@ -18,7 +19,9 @@ class CoursesController < ApplicationController
   end
 
   def new
-    @course = Course.new(user: current_user, date: Date.current)
+    @course = Course.new(user: current_user,
+                         date: Date.current,
+                         name: params[:name])
     respond_to do |format|
       format.js { render :edit }
     end
