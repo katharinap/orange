@@ -12,7 +12,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Course, :type => :model do
+RSpec.describe Course, type: :model do
   describe 'validations' do
     it 'is not valid without a date' do
       course = build(:course, date: nil)

@@ -37,7 +37,8 @@ class CoursesController < ApplicationController
     if @course.save
       redirect_to user_courses_path(current_user, notice: 'Course was created.')
     else
-      redirect_to user_courses_path(current_user, error: 'Failed to create course.')
+      redirect_to user_courses_path(current_user,
+                                    error: 'Failed to create course.')
     end
   end
 

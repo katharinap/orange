@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :push_ups
   has_many :user_stats
   has_many :courses
-  
+
   attr_writer :login
 
   def current_weight

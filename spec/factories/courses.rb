@@ -12,8 +12,8 @@
 
 FactoryGirl.define do
   factory :course do
-    name "MyString"
-    date "2016-05-30"
+    name 'MyString'
+    date '2016-05-30'
     user
   end
 end
