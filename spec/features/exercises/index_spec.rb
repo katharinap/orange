@@ -14,6 +14,13 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     login_as(@user, scope: :user)
   end
 
+  it 'does not allow access to another user' do
+    real_user = create(:user)
+    visit user_exercises_path(real_user)
+    expect(page).to have_content "You do not have permission to access #{user_exercises_path(real_user)}."
+    expect(current_path).to eq(user_exercises_path(@user))
+  end
+
   it 'allows to create a new push-up entry' do
     visit user_exercises_path(@user)
     click_link 'Add Push-Up'

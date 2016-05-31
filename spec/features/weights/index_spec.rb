@@ -13,6 +13,13 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     login_as(@user, scope: :user, run_callbacks: false)
   end
 
+  it 'does not allow access to another user' do
+    real_user = create(:user)
+    visit user_weights_path(real_user)
+    expect(page).to have_content "You do not have permission to access #{user_weights_path(real_user)}."
+    expect(current_path).to eq(user_exercises_path(@user))
+  end
+
   it 'displays the weight graph' do
     visit user_weights_path(@user)
     expect(page).not_to have_errors

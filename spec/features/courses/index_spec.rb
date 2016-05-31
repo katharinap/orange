@@ -22,6 +22,13 @@ RSpec.describe 'course overview', type: :feature, js: true do
     expect(page).not_to have_errors
   end
 
+  it 'does not allow access to another user' do
+    real_user = create(:user)
+    visit user_courses_path(real_user)
+    expect(page).to have_content "You do not have permission to access #{user_courses_path(real_user)}."
+    expect(current_path).to eq(user_exercises_path(@user))
+  end
+
   it 'allows to create a new course entry' do
     visit user_courses_path(@user)
     click_link 'Add Krav Level 1'
