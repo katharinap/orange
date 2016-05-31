@@ -23,8 +23,8 @@ class ExercisesController < ApplicationController
 
   def update
     if @exercise.update(exercise_params)
-      redirect_to user_exercises_path(current_user,
-                                      notice: 'Exercise was updated.')
+      flash[:notice] = 'Exercise successfully updated.'
+      redirect_to user_exercises_path(current_user)
     else
       render :edit
     end
@@ -33,18 +33,17 @@ class ExercisesController < ApplicationController
   def create
     @exercise = Exercise.new(exercise_params)
     if @exercise.save
-      redirect_to user_exercises_path(current_user,
-                                      notice: 'Exercise was created.')
+      flash[:notice] = 'Exercise successfully created.'
     else
-      redirect_to user_exercises_path(current_user,
-                                      error: 'Failed to create exercise.')
+      flash[:error] = 'Failed to create exercise.'
     end
+    redirect_to user_exercises_path(current_user)
   end
 
   def destroy
     @exercise.destroy
-    redirect_to user_exercises_path(current_user,
-                                    notice: 'Exercise was deleted.')
+    flash[:notice] = 'Exercise successfully deleted.'
+    redirect_to user_exercises_path(current_user)
   end
 
   private

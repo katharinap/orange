@@ -29,6 +29,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(@user.push_ups.last.repetitions).to eq(17)
     expect(@user.push_ups.last.duration).to eq(180)
     expect(@user.push_ups.last.date).to eq(Date.new(2016, 1, 28))
+    expect(page).to have_content 'Exercise successfully created.'
   end
 
   it 'allows to create a new sit-up entry' do
@@ -46,6 +47,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(@user.sit_ups.last.repetitions).to eq(27)
     expect(@user.sit_ups.last.duration).to eq(150)
     expect(@user.sit_ups.last.date).to eq(Date.new(2016, 2, 27))
+    expect(page).to have_content 'Exercise successfully created.'
   end
 
   it 'allows to edit an existing push-up entry' do
@@ -65,6 +67,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(push_up.repetitions).to eq(27)
     expect(push_up.duration).to eq(150)
     expect(push_up.date).to eq(Date.new(2016, 2, 27))
+    expect(page).to have_content 'Exercise successfully updated.'
   end
 
   it 'allows to edit an existing sit-up entry' do
@@ -84,6 +87,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(sit_up.repetitions).to eq(27)
     expect(sit_up.duration).to eq(150)
     expect(sit_up.date).to eq(Date.new(2016, 2, 27))
+    expect(page).to have_content 'Exercise successfully updated.'
   end
 
   it 'allows to delete an existing push-up entry' do
@@ -95,6 +99,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     end
     wait_for_ajax
     expect(@user.push_ups.count).to eq(9)
+    expect(page).to have_content 'Exercise successfully deleted.'
   end
 
   it 'allows to delete an existing sit-up entry' do
@@ -106,5 +111,6 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     end
     wait_for_ajax
     expect(@user.sit_ups.count).to eq(9)
+    expect(page).to have_content 'Exercise successfully deleted.'
   end
 end

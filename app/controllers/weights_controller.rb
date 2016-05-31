@@ -18,10 +18,11 @@ class WeightsController < ApplicationController
   def create
     @user_stat = UserStat.new(user_stat_params)
     if @user_stat.save
-      redirect_to user_weights_path(current_user, notice: 'Entry was created.')
+      flash[:notice] = 'Entry successfully created.'
     else
-      redirect_to user_weights_path(current_user, error: 'Failed to add entry.')
+      flash[:error] = 'Failed to add entry'
     end
+    redirect_to user_weights_path(current_user)
   end
 
   def edit
@@ -32,7 +33,8 @@ class WeightsController < ApplicationController
 
   def update
     if @user_stat.update(user_stat_params)
-      redirect_to user_weights_path(current_user, notice: 'Entry was updated.')
+      flash[:notice] = 'Entry successfully updated.'
+      redirect_to user_weights_path(current_user)
     else
       render :edit
     end
@@ -40,7 +42,8 @@ class WeightsController < ApplicationController
 
   def destroy
     @user_stat.destroy
-    redirect_to user_weights_path(current_user, notice: 'Entry was deleted.')
+    flash[:notice] = 'Entry successfully deleted.'
+    redirect_to user_weights_path(current_user)
   end
 
   private

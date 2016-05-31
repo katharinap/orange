@@ -36,6 +36,7 @@ RSpec.describe 'course overview', type: :feature, js: true do
     expect(courses.count).to eq(16)
     expect(courses.last.name).to eq('Krav Level 1')
     expect(courses.last.date).to eq(Date.new(2016, 5, 10))
+    expect(page).to have_content 'Course successfully created.'
   end
 
   it 'allows to edit an existing course entry' do
@@ -53,6 +54,7 @@ RSpec.describe 'course overview', type: :feature, js: true do
     course = Course.find(course.id)
     expect(course.name).to eq('Krav Level 1')
     expect(course.date).to eq(Date.new(2016, 5, 11))
+    expect(page).to have_content 'Course successfully updated.'
   end
 
   it 'allows to delete an existing course entry' do
@@ -64,5 +66,6 @@ RSpec.describe 'course overview', type: :feature, js: true do
     end
     wait_for_ajax
     expect(@user.courses.count).to eq(14)
+    expect(page).to have_content 'Course successfully deleted.'
   end
 end

@@ -33,6 +33,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     expect(user_stats.count).to eq(11)
     expect(user_stats.last.weight).to eq(100)
     expect(user_stats.last.date).to eq(Date.new(2016, 1, 27))
+    expect(page).to have_content 'Entry successfully created.'
   end
 
   it 'allows to edit an existing weight entry' do
@@ -51,6 +52,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     user_stat = UserStat.find(user_stat.id)
     expect(user_stat.weight).to eq(100)
     expect(user_stat.date).to eq(Date.new(2016, 1, 28))
+    expect(page).to have_content 'Entry successfully updated.'
   end
 
   it 'allows to delete an existing weight entry' do
@@ -62,5 +64,6 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     end
     wait_for_ajax
     expect(@user.user_stats.count).to eq(9)
+    expect(page).to have_content 'Entry successfully deleted.'
   end
 end

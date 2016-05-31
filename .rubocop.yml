@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
+    - 'app/helpers/bootstrap_flash_helper.rb'
 
 Metrics/LineLength:
   Exclude:
