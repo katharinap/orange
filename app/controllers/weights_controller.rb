@@ -8,7 +8,7 @@ class WeightsController < ApplicationController
 
   def new
     @user = User.find(params[:user_id])
-    @user_stat = @user.user_stats.build(date: Date.current,
+    @user_stat = @user.user_stats.build(date: today,
                                         weight: @user.current_weight)
     respond_to do |format|
       format.js { render :edit }

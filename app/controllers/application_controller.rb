@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     user_exercises_path(current_user)
   end
 
+  def today
+    Time.now.in_time_zone('Pacific Time (US & Canada)').to_date
+  end
+
   protected
 
   def configure_permitted_parameters

@@ -20,7 +20,7 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new(user: current_user,
-                         date: Date.current,
+                         date: today,
                          name: params[:name])
     respond_to do |format|
       format.js { render :edit }
