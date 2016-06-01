@@ -1,8 +1,10 @@
 .row
   .btn-group.new-exercise.pull-md-right
     - @course_names.each do |name|
-      = link_to "Add #{name}", new_user_course_path(current_user, name: name), remote: true, class: 'btn btn-secondary', id: "new-#{name.parameterize}"
-
+      = link_to new_user_course_path(current_user, name: name), remote: true, class: 'btn btn-secondary btn-sm', id: "new-#{name.parameterize}" do
+        = glyph 'plus'
+        = name
+      
 #courses-calendar.calendar-container{ data: { event_url: user_courses_path(format: 'json') }}
 
 #course-modal.modal.fade
