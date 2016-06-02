@@ -18,29 +18,19 @@ class Course < ApplicationRecord
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  KNOWN_NAMES = [
-    'Krav Level 1',
-    'Krav Level 2',
-    'Sparring',
-    'Krav Weapons',
-    'JCF',
-    'Pit',
-    'Other'
-  ].freeze
-
-  COLORS = [
-    '#75507b',
-    '#3465a4',
-    '#f57900',
-    '#c17d11',
-    '#73d216',
-    '#cc0000',
-    '#edd400'
-  ].freeze
+  KNOWN = {
+    'Krav Level 1' => { short_title: 'KM 1', color: '#75507b' },
+    'Krav Level 2' => { short_title: 'KM 2', color: '#3465a4' },
+    'Sparring' => { short_title: 'Sparring', color: '#f57900' },
+    'Krav Weapons' => { short_title: 'Weapons', color: '#c17d11' },
+    'JCF' => { short_title: 'JCF', color: '#73d216' },
+    'Pit' => { short_title: 'Pit', color: '#cc0000' },
+    'Other' => { short_title: 'Other', color: '#edd400' }
+  }.freeze
 
   def color
-    idx = KNOWN_NAMES.index(name) || KNOWN_NAMES.index('Other')
-    COLORS[idx]
+    entry = KNOWN[name] || KNOWN['Other']
+    entry[:color]
   end
 
   def as_json(*args)

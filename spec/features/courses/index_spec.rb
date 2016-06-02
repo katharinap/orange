@@ -31,7 +31,7 @@ RSpec.describe 'course overview', type: :feature, js: true do
 
   it 'allows to create a new course entry' do
     visit user_courses_path(@user)
-    click_link 'Add Krav Level 1'
+    click_link 'Krav Level 1'
     within('#course-form') do
       fill_in 'Date', with: '2016-05-10'
       page.execute_script %{ $("a.ui-state-default:contains('10')").trigger("click") }

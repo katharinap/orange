@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @course_names = Course::KNOWN_NAMES
+    @course_names = Course::KNOWN.keys
     respond_to do |format|
       format.html
       format.json do
