@@ -1,11 +1,25 @@
 class ExerciseChart < LazyHighCharts::HighChart
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  def initialize(user)
+  COLORS = %w(
+    #75507b
+    #3465a4
+    #f57900
+    #c17d11
+    #73d216
+    #cc0000
+    #edd400
+  ).freeze
+
+  def initialize(*users)
     super()
+    @multi_user = users.size > 1
     set_options
-    add_series(user.sit_ups.order(:date))
-    add_series(user.push_ups.order(:date))
+    users.each_with_index do |user, idx|
+      Rails.logger.info "--> #{user.login} #{idx}"
+      add_series(user.sit_ups, idx)
+      add_series(user.push_ups, idx)
+    end
   end
 
   private
@@ -16,16 +30,33 @@ class ExerciseChart < LazyHighCharts::HighChart
     xAxis(type: 'datetime')
   end
 
-  def add_series(exercises)
+  def add_series(exercises, user_idx)
     return if exercises.empty?
-    series(type: 'column',
+    series(type: @multi_user ? 'line' : 'column',
            name: label_name(exercises.first),
            data: exercise_data(exercises),
+           dashStyle: dash_style(exercises.first),
+           color: color(exercises.first, user_idx),
            allowPointSelect: true)
   end
 
   def label_name(exercise)
-    exercise.type.pluralize.titleize
+    base = exercise.type.pluralize.titleize
+    return base unless @multi_user
+    "#{base} (#{exercise.user.login})"
+  end
+
+  def dash_style(exercise)
+    exercise.type == 'PushUp' ? 'Solid' : 'ShortDash'
+  end
+
+  def color(exercise, user_idx)
+    color_idx = if @multi_user
+                  user_idx.remainder(COLORS.size)
+                else
+                  exercise.type == 'PushUp' ? 0 : 1
+                end
+    COLORS[color_idx]
   end
 
   def exercise_data(exercises)

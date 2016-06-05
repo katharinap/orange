@@ -2,6 +2,11 @@
   = link_to 'Add Push-Up', new_user_exercise_path(current_user, type: 'PushUp'), remote: true, class: 'btn btn-secondary', id: 'new-push-up'
   = link_to 'Add Sit-Up', new_user_exercise_path(current_user, type: 'SitUp'), remote: true, class: 'btn btn-secondary', id: 'new-sit-up'
 
+- unless @multi_user
+  = link_to exercises_path, class: 'btn btn-secondary' do
+    = glyph 'line-chart'
+    View All Users
+
 #graph.big-plot
   = high_chart("plot", @chart) do |chart|
     = raw "options.plotOptions.series.point.events.click = function() { showModal(this); }"

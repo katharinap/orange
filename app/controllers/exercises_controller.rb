@@ -2,8 +2,13 @@ class ExercisesController < ApplicationController
   before_action :set_exercise, except: %i(index new create)
 
   def index
-    @user = User.find(params[:user_id])
-    @chart = ExerciseChart.new(@user)
+    @multi_user = !params[:user_id]
+    if @multi_user
+      @chart = ExerciseChart.new(*User.relevant)
+    else
+      @user = User.find(params[:user_id])
+      @chart = ExerciseChart.new(@user)
+    end
   end
 
   def edit
