@@ -7,9 +7,10 @@ class WeightsController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user_id])
-    @user_stat = @user.user_stats.build(date: today,
-                                        weight: @user.current_weight)
+    @user_stat = UserStat.new(user: current_user,
+                              date: today,
+                              weight: current_user.current_weight)
+    @permitted = true
     respond_to do |format|
       format.js { render :edit }
     end
@@ -26,6 +27,7 @@ class WeightsController < ApplicationController
   end
 
   def edit
+    @permitted = @user_stat.user == current_user
     respond_to do |format|
       format.js
     end

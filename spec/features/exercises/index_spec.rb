@@ -14,11 +14,22 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     login_as(@user, scope: :user)
   end
 
-  it 'does not allow access to another user' do
+  it 'does not allow another user to edit a push up entry' do
     real_user = create(:user)
+    push_up = real_user.push_ups.create(date: Date.new(2016, 1, 1), repetitions: 15)
     visit user_exercises_path(real_user)
-    expect(page).to have_content "You do not have permission to access #{user_exercises_path(real_user)}."
-    expect(current_path).to eq(user_exercises_path(@user))
+    page.accept_alert 'You do not have permissions to edit this entry' do
+      page.execute_script %{ $.ajax({ url: '/exercises/#{push_up.id}/edit' }) }
+    end
+  end
+
+  it 'does not allow another user to edit a sit up entry' do
+    real_user = create(:user)
+    sit_up = real_user.sit_ups.create(date: Date.new(2016, 1, 1), repetitions: 15)
+    visit user_exercises_path(real_user)
+    page.accept_alert 'You do not have permissions to edit this entry' do
+      page.execute_script %{ $.ajax({ url: '/exercises/#{sit_up.id}/edit' }) }
+    end
   end
 
   it 'allows to create a new push-up entry' do

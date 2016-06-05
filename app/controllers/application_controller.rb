@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :check_user_access!
 
   def after_sign_in_path_for(_resource)
     user_exercises_path(current_user)
@@ -20,14 +19,6 @@ class ApplicationController < ActionController::Base
     attrs = [:username, :email, :password, :password_confirmation, :remember_me]
     devise_parameter_sanitizer.permit :sign_up, keys: attrs
     devise_parameter_sanitizer.permit :account_update, keys: attrs
-  end
-
-  def check_user_access!
-    return if current_page_permitted?
-    # rubocop:disable Metrics/LineLength
-    flash[:error] = "You do not have permission to access #{request.env['PATH_INFO']}."
-    # rubocop:enable Metrics/LineLength
-    redirect_to user_exercises_path(current_user)
   end
 
   def current_page_permitted?

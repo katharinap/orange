@@ -5,30 +5,24 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.find_or_create_by(username: 'test', email: 'test@example.com')
+user = User.find_or_create_by(username: 'someone', email: 'someone@example.com')
 # user.update(password: 'password1234', password_confirmation: 'password1234')
 
-if false
+if true
   date = Date.new(2016,1,1)
   push_up_reps = 10
   sit_up_reps = 25
 
+  user.push_ups.destroy_all
+  user.sit_ups.destroy_all
+  
   (1..20).each do |i|
     user.push_ups.create(repetitions: push_up_reps, date: date)
     user.sit_ups.create(repetitions: sit_up_reps, date: date)
 
+    push_up_reps += (rand(6) - 3)
+    sit_up_reps += (rand(6) - 3)
     date = date.tomorrow
-    case i.remainder(3)
-    when 0
-      push_up_reps += 2
-      sit_up_reps += 3
-    when 1
-      push_up_reps += 1
-      sit_up_reps -= 1
-    when 2
-      push_up_reps -= 1
-      sit_up_reps += 2
-    end    
   end
 end
 
@@ -42,9 +36,9 @@ if false
   end
 end
 
-if true
+if false
   c1 = { name: 'Krav Level 1', days: [2, 3, 4, 10, 11, 16, 17, 23, 24, 25] }
-  c2 = { name: 'Krav Level 2', days: [6, 13, 20, 27, 2, 10] }
+  c2 = { name: 'Krav Level 2', days: [6, 13, 20, 27, 10] }
   c3 = { name: 'Sparring', days: [5, 12, 19, 26] }
   c3 = { name: 'JCF', days: [4, 11, 18, 25, 2] }
   c4 = { name: 'Pit', days: [9] }

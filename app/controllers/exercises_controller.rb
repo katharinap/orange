@@ -7,6 +7,7 @@ class ExercisesController < ApplicationController
   end
 
   def edit
+    @permitted = @exercise.user == current_user
     respond_to do |format|
       format.js
     end
@@ -16,6 +17,7 @@ class ExercisesController < ApplicationController
     @exercise = Exercise.new(type: params[:type],
                              user: current_user,
                              date: today)
+    @permitted = true
     respond_to do |format|
       format.js { render :edit }
     end

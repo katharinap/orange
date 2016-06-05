@@ -1,7 +1,10 @@
+<% if @permitted %>
 $("#exercise-form").html("<%= escape_javascript(render partial: 'form', locals: { exercise: @exercise }) %>");
 $("input.date_picker").datepicker({
   dateFormat: 'yy-mm-dd'
 });
 $("#exercise-modal-title").html('<%= exercise_modal_title(@exercise) %>');
 $("#exercise-modal").modal('show');
-
+<% else %>
+alert('You do not have permissions to edit this entry');
+<% end %>

@@ -13,11 +13,13 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     login_as(@user, scope: :user, run_callbacks: false)
   end
 
-  it 'does not allow access to another user' do
+  it 'does not allow another user to edit a course' do
     real_user = create(:user)
+    user_stat = real_user.user_stats.create(date: Date.new(2016, 1, 1), weight: 100.0)
     visit user_weights_path(real_user)
-    expect(page).to have_content "You do not have permission to access #{user_weights_path(real_user)}."
-    expect(current_path).to eq(user_exercises_path(@user))
+    page.accept_alert 'You do not have permissions to edit this entry' do
+      page.execute_script %{ $.ajax({ url: '/weights/#{user_stat.id}/edit' }) }
+    end
   end
 
   it 'displays the weight graph' do

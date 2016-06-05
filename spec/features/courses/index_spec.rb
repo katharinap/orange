@@ -22,11 +22,13 @@ RSpec.describe 'course overview', type: :feature, js: true do
     expect(page).not_to have_errors
   end
 
-  it 'does not allow access to another user' do
+  it 'does not allow another user to edit a course' do
     real_user = create(:user)
+    course = real_user.courses.create(date: Date.new(2016, 5, 1), name: 'Something')
     visit user_courses_path(real_user)
-    expect(page).to have_content "You do not have permission to access #{user_courses_path(real_user)}."
-    expect(current_path).to eq(user_exercises_path(@user))
+    page.accept_alert 'You do not have permissions to edit this entry' do
+      page.execute_script %{ $.ajax({ url: '/courses/#{course.id}/edit' }) }
+    end
   end
 
   it 'allows to create a new course entry' do

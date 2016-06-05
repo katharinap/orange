@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
   end
 
   def edit
+    @permitted = @course.user == current_user
     respond_to do |format|
       format.js
     end
@@ -22,6 +23,7 @@ class CoursesController < ApplicationController
     @course = Course.new(user: current_user,
                          date: today,
                          name: params[:name])
+    @permitted = true
     respond_to do |format|
       format.js { render :edit }
     end
