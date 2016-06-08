@@ -6,6 +6,7 @@
     "jquery-ujs": "latest",
     "tether": "latest",
     "font-awesome": "latest",
-    "fullcalendar": "latest"
+    "fullcalendar": "latest",
+    "qtip2": "latest"
   }
 }
