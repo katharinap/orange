@@ -19,4 +19,5 @@
 //= require highcharts/highcharts-more
 //= require moment/moment
 //= require fullcalendar/dist/fullcalendar
+//= require qtip2/jquery.qtip
 //= require_tree .

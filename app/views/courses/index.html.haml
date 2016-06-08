@@ -5,7 +5,12 @@
         = glyph 'plus'
         = name
       
-#courses-calendar.calendar-container{ data: { event_url: user_courses_path(format: 'json') }}
+- unless @multi_user
+  = link_to courses_path, class: 'btn btn-secondary' do
+    = glyph 'calendar'
+    View All Users
+
+#courses-calendar.calendar-container{ data: { event_url: @multi_user ? courses_path(format: 'json') :user_courses_path(format: 'json') }}
 
 #course-modal.modal.fade
   .modal-dialog{ role: 'document' }

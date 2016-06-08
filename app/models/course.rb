@@ -18,14 +18,24 @@ class Course < ApplicationRecord
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
+  COLORS = %w(
+    #75507b
+    #3465a4
+    #f57900
+    #c17d11
+    #73d216
+    #cc0000
+    #edd400
+  ).freeze
+
   KNOWN = {
-    'Krav Level 1' => { short_title: 'KM 1', color: '#75507b' },
-    'Krav Level 2' => { short_title: 'KM 2', color: '#3465a4' },
-    'Sparring' => { short_title: 'Sparring', color: '#f57900' },
-    'Krav Weapons' => { short_title: 'Weapons', color: '#c17d11' },
-    'JCF' => { short_title: 'JCF', color: '#73d216' },
-    'Pit' => { short_title: 'Pit', color: '#cc0000' },
-    'Other' => { short_title: 'Other', color: '#edd400' }
+    'Krav Level 1' => { short_title: 'KM 1', color: COLORS[0] },
+    'Krav Level 2' => { short_title: 'KM 2', color: COLORS[1] },
+    'Sparring' => { short_title: 'Sparring', color: COLORS[2] },
+    'Krav Weapons' => { short_title: 'Weapons', color: COLORS[3] },
+    'JCF' => { short_title: 'JCF', color: COLORS[4] },
+    'Pit' => { short_title: 'Pit', color: COLORS[5] },
+    'Other' => { short_title: 'Other', color: COLORS[6] }
   }.freeze
 
   def color
@@ -33,12 +43,31 @@ class Course < ApplicationRecord
     entry[:color]
   end
 
-  def as_json(*args)
-    # we can't call the url attribute just 'url' because fullcalendar
-    # automatically visits that url when this attribute is set and we
-    # get a cross-site reference error
-    super.tap { |hash| hash['title'] = hash.delete 'name' }
-         .merge(edit_url: url_helpers.edit_course_path(self),
-                color: color)
+  def self.calendar_data(*users)
+    courses = []
+    if users.size > 1
+      users.each_with_index do |user, idx|
+        courses += user.courses.map { |c| c.user_calendar_data(idx) }
+      end
+    else
+      courses += users.first.courses.map(&:calendar_data)
+    end
+    courses
+  end
+
+  def calendar_data
+    {
+      title: name,
+      date: date,
+      edit_url: url_helpers.edit_course_path(self),
+      color: color
+    }
+  end
+
+  def user_calendar_data(color_idx)
+    calendar_data.merge(
+      color: COLORS[color_idx],
+      tip: user.login
+    )
   end
 end

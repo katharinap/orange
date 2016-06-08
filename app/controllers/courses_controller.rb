@@ -2,12 +2,13 @@ class CoursesController < ApplicationController
   before_action :set_course, except: %i(index new create)
 
   def index
-    @user = User.find(params[:user_id])
     @course_names = Course::KNOWN.keys
+    @multi_user = !params[:user_id]
     respond_to do |format|
       format.html
       format.json do
-        render json: @user.courses.to_json
+        users = @multi_user ? User.relevant : [User.find(params[:user_id])]
+        render json: Course.calendar_data(*users).to_json
       end
     end
   end

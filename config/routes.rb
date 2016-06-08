@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   resources :exercises, only: %i(index)
   resources :weights, only: %i(index)
+  resources :courses, only: %i(index)
   resources :users, only: [] do
     resources :exercises, shallow: true, except: %i(show)
     resources :weights, shallow: true, except: %i(show)
