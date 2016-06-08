@@ -16,7 +16,6 @@ class ExerciseChart < LazyHighCharts::HighChart
     @multi_user = users.size > 1
     set_options
     users.each_with_index do |user, idx|
-      Rails.logger.info "--> #{user.login} #{idx}"
       add_series(user.sit_ups, idx)
       add_series(user.push_ups, idx)
     end

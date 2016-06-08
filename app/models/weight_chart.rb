@@ -1,10 +1,23 @@
 class WeightChart < LazyHighCharts::HighChart
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  def initialize(user)
+  COLORS = %w(
+    #75507b
+    #3465a4
+    #f57900
+    #c17d11
+    #73d216
+    #cc0000
+    #edd400
+  ).freeze
+
+  def initialize(*users)
     super()
+    @multi_user = users.size > 1
     set_options
-    add_series(user.user_stats.order(:date))
+    users.each_with_index do |user, idx|
+      add_series(user.user_stats, idx)
+    end
   end
 
   private
@@ -15,12 +28,17 @@ class WeightChart < LazyHighCharts::HighChart
     xAxis(type: 'datetime')
   end
 
-  def add_series(user_stats)
+  def add_series(user_stats, user_idx)
     return if user_stats.empty?
     series(type: 'line',
-           name: 'Weight',
+           name: label_name(user_stats.first),
            data: weight_data(user_stats),
+           color: color(user_idx),
            allowPointSelect: true)
+  end
+
+  def label_name(user_stat)
+    @multi_user ? user_stat.user.login : 'Weight'
   end
 
   def weight_data(user_stats)
@@ -31,6 +49,11 @@ class WeightChart < LazyHighCharts::HighChart
         url: url_helpers.edit_weight_path(s)
       }
     end
+  end
+
+  def color(user_idx)
+    color_idx = user_idx.remainder(COLORS.size)
+    COLORS[color_idx]
   end
 
   def milliseconds(date)

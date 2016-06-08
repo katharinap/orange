@@ -5,10 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.find_or_create_by(username: 'someone', email: 'someone@example.com')
+# user = User.find_or_create_by(username: 'someone', email: 'someone@example.com')
 # user.update(password: 'password1234', password_confirmation: 'password1234')
 
-if true
+user = User.find_by username: 'alice'
+
+create_exercises_p = false
+create_weight_entries_p = true
+create_courses_p = true
+
+if create_exercises_p
   date = Date.new(2016,1,1)
   push_up_reps = 10
   sit_up_reps = 25
@@ -26,7 +32,7 @@ if true
   end
 end
 
-if false
+if create_weight_entries_p
   date = Date.new(2016,1,1)
   weight = 140.0
   (1..10).each do |i|
@@ -36,7 +42,7 @@ if false
   end
 end
 
-if false
+if create_courses_p
   c1 = { name: 'Krav Level 1', days: [2, 3, 4, 10, 11, 16, 17, 23, 24, 25] }
   c2 = { name: 'Krav Level 2', days: [6, 13, 20, 27, 10] }
   c3 = { name: 'Sparring', days: [5, 12, 19, 26] }

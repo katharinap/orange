@@ -2,8 +2,13 @@ class WeightsController < ApplicationController
   before_action :set_user_stat, except: %i(index new create)
 
   def index
-    @user = User.find(params[:user_id])
-    @chart = WeightChart.new(@user)
+    @multi_user = !params[:user_id]
+    if @multi_user
+      @chart = WeightChart.new(*User.relevant)
+    else
+      @user = User.find(params[:user_id])
+      @chart = WeightChart.new(@user)
+    end
   end
 
   def new
