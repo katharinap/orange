@@ -1,16 +1,6 @@
 class ExerciseChart < LazyHighCharts::HighChart
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  COLORS = %w(
-    #75507b
-    #3465a4
-    #f57900
-    #c17d11
-    #73d216
-    #cc0000
-    #edd400
-  ).freeze
-
   def initialize(*users)
     super()
     @multi_user = users.size > 1
@@ -51,11 +41,11 @@ class ExerciseChart < LazyHighCharts::HighChart
 
   def color(exercise, user_idx)
     color_idx = if @multi_user
-                  user_idx.remainder(COLORS.size)
+                  user_idx.remainder(ApplicationRecord::COLORS.size)
                 else
                   exercise.type == 'PushUp' ? 0 : 1
                 end
-    COLORS[color_idx]
+    ApplicationRecord::COLORS[color_idx]
   end
 
   def exercise_data(exercises)

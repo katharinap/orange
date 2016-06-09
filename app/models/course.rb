@@ -18,16 +18,6 @@ class Course < ApplicationRecord
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  COLORS = %w(
-    #75507b
-    #3465a4
-    #f57900
-    #c17d11
-    #73d216
-    #cc0000
-    #edd400
-  ).freeze
-
   KNOWN = {
     'Krav Level 1' => { short_title: 'KM 1', color: COLORS[0] },
     'Krav Level 2' => { short_title: 'KM 2', color: COLORS[1] },

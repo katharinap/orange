@@ -1,16 +1,6 @@
 class WeightChart < LazyHighCharts::HighChart
   delegate :url_helpers, to: 'Rails.application.routes'
 
-  COLORS = %w(
-    #75507b
-    #3465a4
-    #f57900
-    #c17d11
-    #73d216
-    #cc0000
-    #edd400
-  ).freeze
-
   def initialize(*users)
     super()
     @multi_user = users.size > 1
@@ -52,8 +42,8 @@ class WeightChart < LazyHighCharts::HighChart
   end
 
   def color(user_idx)
-    color_idx = user_idx.remainder(COLORS.size)
-    COLORS[color_idx]
+    color_idx = user_idx.remainder(ApplicationRecord::COLORS.size)
+    ApplicationRecord::COLORS[color_idx]
   end
 
   def milliseconds(date)
