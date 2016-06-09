@@ -18,21 +18,21 @@ RSpec.describe 'course overview', type: :feature, js: true do
   end
 
   it 'displays the course graph' do
-    visit user_courses_path(@user)
+    visit courses_path
     expect(page).not_to have_errors
   end
 
   it 'does not allow another user to edit a course' do
     real_user = create(:user)
     course = real_user.courses.create(date: Date.new(2016, 5, 1), name: 'Something')
-    visit user_courses_path(real_user)
+    visit courses_path
     page.accept_alert 'You do not have permissions to edit this entry' do
       page.execute_script %{ $.ajax({ url: '/courses/#{course.id}/edit' }) }
     end
   end
 
   it 'allows to create a new course entry' do
-    visit user_courses_path(@user)
+    visit courses_path
     click_link 'Krav Level 1'
     within('#course-form') do
       fill_in 'Date', with: '2016-05-10'
@@ -46,10 +46,11 @@ RSpec.describe 'course overview', type: :feature, js: true do
     expect(courses.last.name).to eq('Krav Level 1')
     expect(courses.last.date).to eq(Date.new(2016, 5, 10))
     expect(page).to have_content 'Course successfully created.'
+    expect(current_path).to eq(courses_path)
   end
 
   it 'allows to edit an existing course entry' do
-    visit user_courses_path(@user)
+    visit courses_path
     course = @user.courses.first
     page.execute_script %{ $.ajax({ url: '/courses/#{course.id}/edit' }) }
     within('#course-form') do
@@ -64,10 +65,11 @@ RSpec.describe 'course overview', type: :feature, js: true do
     expect(course.name).to eq('Krav Level 1')
     expect(course.date).to eq(Date.new(2016, 5, 11))
     expect(page).to have_content 'Course successfully updated.'
+    expect(current_path).to eq(courses_path)
   end
 
   it 'allows to delete an existing course entry' do
-    visit user_courses_path(@user)
+    visit courses_path
     course = @user.courses.first
     page.execute_script %{ $.ajax({ url: '/courses/#{course.id}/edit' }) }
     within('#course-form') do
@@ -76,5 +78,6 @@ RSpec.describe 'course overview', type: :feature, js: true do
     wait_for_ajax
     expect(@user.courses.count).to eq(14)
     expect(page).to have_content 'Course successfully deleted.'
+    expect(current_path).to eq(courses_path)
   end
 end

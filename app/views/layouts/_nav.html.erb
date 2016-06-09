@@ -4,19 +4,19 @@
   </div>
   <ul class="nav navbar-nav">
     <li class="<%= nav_item_classes(user_exercises_path(current_user)) %>">
-      <%= link_to user_exercises_path(current_user), class: 'nav-link' do %>
+      <%= link_to exercises_path, class: 'nav-link' do %>
       <%= glyph 'bar-chart fa-fw' %>
       Exercises
       <% end %>
     </li>
     <li class="<%= nav_item_classes(user_courses_path(current_user)) %>">
-      <%= link_to user_courses_path(current_user), class: 'nav-link' do %>
+      <%= link_to courses_path, class: 'nav-link' do %>
       <%= glyph 'calendar fa-fw' %>
       Courses
       <% end %>
     </li>
     <li class="<%= nav_item_classes(user_weights_path(current_user)) %>">
-      <%= link_to user_weights_path(current_user), class: 'nav-link' do %>
+      <%= link_to weights_path, class: 'nav-link' do %>
       <%= glyph 'line-chart fa-fw' %>
       Weight
       <% end %>

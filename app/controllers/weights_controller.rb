@@ -28,7 +28,7 @@ class WeightsController < ApplicationController
     else
       flash[:error] = 'Failed to add entry'
     end
-    redirect_to user_weights_path(current_user)
+    redirect_to weights_path
   end
 
   def edit
@@ -41,7 +41,7 @@ class WeightsController < ApplicationController
   def update
     if @user_stat.update(user_stat_params)
       flash[:notice] = 'Entry successfully updated.'
-      redirect_to user_weights_path(current_user)
+      redirect_to weights_path
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class WeightsController < ApplicationController
   def destroy
     @user_stat.destroy
     flash[:notice] = 'Entry successfully deleted.'
-    redirect_to user_weights_path(current_user)
+    redirect_to weights_path
   end
 
   private

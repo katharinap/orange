@@ -16,19 +16,19 @@ RSpec.describe 'weight overview', type: :feature, js: true do
   it 'does not allow another user to edit a course' do
     real_user = create(:user)
     user_stat = real_user.user_stats.create(date: Date.new(2016, 1, 1), weight: 100.0)
-    visit user_weights_path(real_user)
+    visit weights_path
     page.accept_alert 'You do not have permissions to edit this entry' do
       page.execute_script %{ $.ajax({ url: '/weights/#{user_stat.id}/edit' }) }
     end
   end
 
   it 'displays the weight graph' do
-    visit user_weights_path(@user)
+    visit weights_path
     expect(page).not_to have_errors
   end
 
   it 'allows to create a new weight entry' do
-    visit user_weights_path(@user)
+    visit weights_path
     click_link 'Add Entry'
     within('#weight-form') do
       fill_in 'Weight', with: 100
@@ -43,10 +43,11 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     expect(user_stats.last.weight).to eq(100)
     expect(user_stats.last.date).to eq(Date.new(2016, 1, 27))
     expect(page).to have_content 'Entry successfully created.'
+    expect(current_path).to eq(weights_path)
   end
 
   it 'allows to edit an existing weight entry' do
-    visit user_weights_path(@user)
+    visit weights_path
     user_stat = @user.user_stats.first
     page.execute_script %{ showModal({ options: { url: '/weights/#{user_stat.id}/edit'}}) }
     within('#weight-form') do
@@ -62,10 +63,11 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     expect(user_stat.weight).to eq(100)
     expect(user_stat.date).to eq(Date.new(2016, 1, 28))
     expect(page).to have_content 'Entry successfully updated.'
+    expect(current_path).to eq(weights_path)
   end
 
   it 'allows to delete an existing weight entry' do
-    visit user_weights_path(@user)
+    visit weights_path
     user_stat = @user.user_stats.first
     page.execute_script %{ showModal({ options: { url: '/weights/#{user_stat.id}/edit'}}) }
     within('#weight-form') do
@@ -74,5 +76,6 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     wait_for_ajax
     expect(@user.user_stats.count).to eq(9)
     expect(page).to have_content 'Entry successfully deleted.'
+    expect(current_path).to eq(weights_path)
   end
 end

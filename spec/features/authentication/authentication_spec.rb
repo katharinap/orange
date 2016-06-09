@@ -13,7 +13,7 @@ RSpec.describe 'the signin process', type: :feature do
     end
     click_button 'Sign in'
     expect(page).to have_content 'Signed in successfully'
-    expect(current_path).to eq(user_exercises_path(@user))
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'signs the user in with her username' do
@@ -24,7 +24,7 @@ RSpec.describe 'the signin process', type: :feature do
     end
     click_button 'Sign in'
     expect(page).to have_content 'Signed in successfully'
-    expect(current_path).to eq(user_exercises_path(@user))
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'does not sign the user in with a wrong password' do

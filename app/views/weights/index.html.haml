@@ -1,11 +1,6 @@
 .btn-group.new-weight.pull-md-right
   = link_to 'Add Entry', new_user_weight_path(current_user), remote: true, class: 'btn btn-secondary', id: 'new-weight'
 
-- unless @multi_user
-  = link_to weights_path, class: 'btn btn-secondary' do
-    = glyph 'line-chart'
-    View All Users
-
 #graph.big-plot
   = high_chart("plot", @chart) do |chart|
     = raw "options.plotOptions.series.point.events.click = function() { showModal(this); }"

@@ -17,7 +17,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
   it 'does not allow another user to edit a push up entry' do
     real_user = create(:user)
     push_up = real_user.push_ups.create(date: Date.new(2016, 1, 1), repetitions: 15)
-    visit user_exercises_path(real_user)
+    visit exercises_path
     page.accept_alert 'You do not have permissions to edit this entry' do
       page.execute_script %{ $.ajax({ url: '/exercises/#{push_up.id}/edit' }) }
     end
@@ -26,14 +26,14 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
   it 'does not allow another user to edit a sit up entry' do
     real_user = create(:user)
     sit_up = real_user.sit_ups.create(date: Date.new(2016, 1, 1), repetitions: 15)
-    visit user_exercises_path(real_user)
+    visit exercises_path
     page.accept_alert 'You do not have permissions to edit this entry' do
       page.execute_script %{ $.ajax({ url: '/exercises/#{sit_up.id}/edit' }) }
     end
   end
 
   it 'allows to create a new push-up entry' do
-    visit user_exercises_path(@user)
+    visit exercises_path
     click_link 'Add Push-Up'
     within('#exercise-form') do
       fill_in 'Repetitions', with: 17
@@ -48,10 +48,11 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(@user.push_ups.last.duration).to eq(180)
     expect(@user.push_ups.last.date).to eq(Date.new(2016, 1, 28))
     expect(page).to have_content 'Exercise successfully created.'
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'allows to create a new sit-up entry' do
-    visit user_exercises_path(@user)
+    visit exercises_path
     click_link 'Add Sit-Up'
     within('#exercise-form') do
       fill_in 'Repetitions', with: 27
@@ -66,10 +67,11 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(@user.sit_ups.last.duration).to eq(150)
     expect(@user.sit_ups.last.date).to eq(Date.new(2016, 2, 27))
     expect(page).to have_content 'Exercise successfully created.'
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'allows to edit an existing push-up entry' do
-    visit user_exercises_path(@user)
+    visit exercises_path
     push_up = @user.push_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{push_up.id}/edit'}}) }
     within('#exercise-form') do
@@ -86,10 +88,11 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(push_up.duration).to eq(150)
     expect(push_up.date).to eq(Date.new(2016, 2, 27))
     expect(page).to have_content 'Exercise successfully updated.'
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'allows to edit an existing sit-up entry' do
-    visit user_exercises_path(@user)
+    visit exercises_path
     sit_up = @user.sit_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{sit_up.id}/edit'}}) }
     within('#exercise-form') do
@@ -106,10 +109,11 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     expect(sit_up.duration).to eq(150)
     expect(sit_up.date).to eq(Date.new(2016, 2, 27))
     expect(page).to have_content 'Exercise successfully updated.'
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'allows to delete an existing push-up entry' do
-    visit user_exercises_path(@user)
+    visit exercises_path
     push_up = @user.push_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{push_up.id}/edit'}}) }
     within('#exercise-form') do
@@ -118,10 +122,11 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     wait_for_ajax
     expect(@user.push_ups.count).to eq(9)
     expect(page).to have_content 'Exercise successfully deleted.'
+    expect(current_path).to eq(exercises_path)
   end
 
   it 'allows to delete an existing sit-up entry' do
-    visit user_exercises_path(@user)
+    visit exercises_path
     sit_up = @user.sit_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{sit_up.id}/edit'}}) }
     within('#exercise-form') do
@@ -130,5 +135,6 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     wait_for_ajax
     expect(@user.sit_ups.count).to eq(9)
     expect(page).to have_content 'Exercise successfully deleted.'
+    expect(current_path).to eq(exercises_path)
   end
 end

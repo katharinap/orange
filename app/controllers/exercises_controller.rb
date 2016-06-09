@@ -31,7 +31,7 @@ class ExercisesController < ApplicationController
   def update
     if @exercise.update(exercise_params)
       flash[:notice] = 'Exercise successfully updated.'
-      redirect_to user_exercises_path(current_user)
+      redirect_to exercises_path
     else
       render :edit
     end
@@ -44,13 +44,13 @@ class ExercisesController < ApplicationController
     else
       flash[:error] = 'Failed to create exercise.'
     end
-    redirect_to user_exercises_path(current_user)
+    redirect_to exercises_path
   end
 
   def destroy
     @exercise.destroy
     flash[:notice] = 'Exercise successfully deleted.'
-    redirect_to user_exercises_path(current_user)
+    redirect_to exercises_path
   end
 
   private
