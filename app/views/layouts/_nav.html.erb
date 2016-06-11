@@ -12,7 +12,7 @@
     <li class="<%= nav_item_classes(courses_path) %>">
       <%= link_to courses_path, class: 'nav-link' do %>
       <%= glyph 'calendar fa-fw' %>
-      Courses
+      Classes
       <% end %>
     </li>
     <li class="<%= nav_item_classes(weights_path) %>">
@@ -23,7 +23,7 @@
     </li>
     <li class="<%= nav_item_classes(user_push_up_challenge_entries_path(current_user)) %>">
       <%= link_to user_push_up_challenge_entries_path(current_user), class: 'nav-link' do %>
-      <%= glyph 'line-chart fa-fw' %>
+      <%= glyph 'list-ul fa-fw' %>
       100 Push-Ups
       <% end %>
     </li>
