@@ -11,8 +11,9 @@
 user = User.find_by username: 'alice'
 
 create_exercises_p = false
-create_weight_entries_p = true
-create_courses_p = true
+create_weight_entries_p = false
+create_courses_p = false
+add_push_up_challenge = true
 
 if create_exercises_p
   date = Date.new(2016,1,1)
@@ -55,5 +56,16 @@ if create_courses_p
       date = Date.new(2016, 5, day)
       Course.create(name: course[:name], date: date, user: user)
     end
+  end
+end
+
+if add_push_up_challenge
+  User.all.each do |user|
+    user.push_up_challenge_entries.create(week: 1, day: 1, sets: [6, 6, 4, 4, 5], done_at: Date.new(2016, 6, 8), rest: 60)
+    user.push_up_challenge_entries.create(week: 1, day: 2, sets: [6, 8, 6, 6, 7], rest: 60)
+    user.push_up_challenge_entries.create(week: 1, day: 3, sets: [8, 10, 7, 7, 10], rest: 60)
+    user.push_up_challenge_entries.create(week: 2, day: 1, sets: [9, 11, 8, 8, 11], rest: 60)
+    user.push_up_challenge_entries.create(week: 2, day: 2, sets: [10, 12, 9, 9, 13], rest: 90)
+    user.push_up_challenge_entries.create(week: 2, day: 3, sets: [12, 13, 10, 10, 15], rest: 120)
   end
 end

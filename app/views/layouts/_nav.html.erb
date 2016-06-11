@@ -3,22 +3,28 @@
     <%= image_tag 'belt.png', height: '32' %>
   </div>
   <ul class="nav navbar-nav">
-    <li class="<%= nav_item_classes(user_exercises_path(current_user)) %>">
+    <li class="<%= nav_item_classes(exercises_path) %>">
       <%= link_to exercises_path, class: 'nav-link' do %>
       <%= glyph 'bar-chart fa-fw' %>
       Exercises
       <% end %>
     </li>
-    <li class="<%= nav_item_classes(user_courses_path(current_user)) %>">
+    <li class="<%= nav_item_classes(courses_path) %>">
       <%= link_to courses_path, class: 'nav-link' do %>
       <%= glyph 'calendar fa-fw' %>
       Courses
       <% end %>
     </li>
-    <li class="<%= nav_item_classes(user_weights_path(current_user)) %>">
+    <li class="<%= nav_item_classes(weights_path) %>">
       <%= link_to weights_path, class: 'nav-link' do %>
       <%= glyph 'line-chart fa-fw' %>
       Weight
+      <% end %>
+    </li>
+    <li class="<%= nav_item_classes(user_push_up_challenge_entries_path(current_user)) %>">
+      <%= link_to user_push_up_challenge_entries_path(current_user), class: 'nav-link' do %>
+      <%= glyph 'line-chart fa-fw' %>
+      100 Push-Ups
       <% end %>
     </li>
   </ul>

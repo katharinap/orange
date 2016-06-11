@@ -34,6 +34,7 @@ class User < ApplicationRecord
   has_many :push_ups
   has_many :user_stats
   has_many :courses
+  has_many :push_up_challenge_entries
 
   scope :relevant, -> { where.not(username: 'test') }
 

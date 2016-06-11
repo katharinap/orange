@@ -1,0 +1,49 @@
+- if entry.done_at
+  - entry_state = :done
+  - entry_class = 'alert alert-success'
+- elsif entry == @editable_entry
+  - entry_state = :editable
+  - entry_class = nil
+- else
+  - entry_state = :future
+  - entry_class = nil
+
+.push-up-challenge-entry.card{ class: entry_class }
+  .card-block
+    %h4.card-title= "Week #{entry.week}, Day #{entry.day}"
+    .card-text
+      - if entry.done_at
+        %p
+          = "Done at: #{l entry.done_at}"
+
+      - if entry == @editable_entry
+        = simple_form_for entry do |f|
+          .row
+            .col-xs-1
+              %label Sets:
+            - entry.sets.each do |reps|
+              .col-xs-1
+                %input{ type: 'number', name: 'push_up_challenge_entry[sets][]', value: reps, class: 'form-control' }
+          = f.input :done_at, as: :date_picker, input_html: { value: Date.today }
+          .form-actions
+            = f.button :submit, 'Done'
+            = link_to 'Delete', push_up_challenge_entry_path(entry), method: :delete, class: 'btn btn-danger', data: { confirm: "Are you sure?" }
+      - else
+        .row
+          .col-xs-1
+            %label Sets:
+          - entry.sets.each do |reps|
+            .col-xs-1= reps
+          .col-xs-3.pull-right
+            = "Total Count: #{entry.total_reps}"
+        - if entry.done_at
+          - url = url_for(controller: 'push_up_challenge_entries', action: 'create')
+          = simple_form_for :push_up_challenge_entry, url: url, method: :post do |f|
+            = f.input :week, as: :hidden, input_html: { value: entry.week }
+            = f.input :day, as: :hidden, input_html: { value: entry.day }
+            = f.input :user_id, as: :hidden, input_html: { value: entry.user_id }
+            - entry.sets.each do |reps|
+              %input{ type: 'hidden', name: 'push_up_challenge_entry[sets][]', value: reps }
+            = f.button :submit, 'Repeat'
+
+          
