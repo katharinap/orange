@@ -1,0 +1,30 @@
+- id = "entry-#{entry.id}"
+.push-up-challenge-entry.card
+  .card-block{ data: { toggle: 'collapse', target: "##{id}" }, aria: { expanded: false, controls: id} }
+    %h4.card-title
+      .row
+        .col-xs-9
+          = "Week #{entry.week}, Day #{entry.day}"
+        .col-xs-2
+          %strong
+            = sigma
+          = entry.total_reps
+        .col-xs-1.pull-right
+          = glyph 'check-square-o'
+  .collapse{ id: id }
+    .card-block
+      .card-text
+        = "Done at: #{l entry.done_at}"
+        .row
+          .col-xs-1
+            %label Sets:
+          - entry.sets.each do |reps|
+            .col-xs-1= reps
+        - url = url_for(controller: 'push_up_challenge_entries', action: 'create')
+        = simple_form_for :push_up_challenge_entry, url: url, method: :post do |f|
+          = f.input :week, as: :hidden, input_html: { value: entry.week }
+          = f.input :day, as: :hidden, input_html: { value: entry.day }
+          = f.input :user_id, as: :hidden, input_html: { value: entry.user_id }
+          - entry.sets.each do |reps|
+            %input{ type: 'hidden', name: 'push_up_challenge_entry[sets][]', value: reps }
+          = f.button :submit, 'Repeat'

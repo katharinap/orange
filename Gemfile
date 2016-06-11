@@ -53,6 +53,7 @@ group :development do
   gem 'annotate'
   gem 'rubocop', require: false
   gem 'haml-lint', require: false
+  gem 'rack-mini-profiler'
 end
 
 group :test do

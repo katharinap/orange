@@ -1,0 +1,21 @@
+- id = "entry-#{entry.id}"
+.push-up-challenge-entry.card
+  .card-block{ data: { toggle: 'collapse', target: "##{id}" }, aria: { expanded: false, controls: id} }
+    %h4.card-title
+      .row
+        .col-xs-9
+          = "Week #{entry.week}, Day #{entry.day}"
+        .col-xs-2
+          %strong
+            = sigma
+          = entry.total_reps
+  .collapse{ id: id }
+    .card-block
+      .card-text
+        .row
+          .col-xs-1
+            %label Sets:
+          - entry.sets.each do |reps|
+            .col-xs-1= reps
+
+          
