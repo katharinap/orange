@@ -12,17 +12,17 @@
       .card-text
         = simple_form_for entry do |f|
           .row
+            %p
+              Rest:
+              = entry.rest
+              Sec
+          .row
             .form-group
               .col-xs-1
                 %label Sets
               - entry.sets.each do |reps|
-                .col-xs-1
+                .col-xs-2
                   %input{ type: 'number', name: 'push_up_challenge_entry[sets][]', value: reps, class: 'form-control' }
-              .col-xs-3.pull-right
-                %label
-                  Rest:
-                  = entry.rest
-                  Sec
           .row
             .form-group
               .col-xs-1
