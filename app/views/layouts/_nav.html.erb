@@ -2,48 +2,67 @@
   <div class="navbar-brand">
     <%= image_tag 'belt.png', height: '32' %>
   </div>
-  <ul class="nav navbar-nav">
-    <li class="<%= nav_item_classes(exercises_path) %>">
-      <%= link_to exercises_path, class: 'nav-link' do %>
-      <%= glyph 'bar-chart fa-fw' %>
-      Exercises
-      <% end %>
-    </li>
-    <li class="<%= nav_item_classes(courses_path) %>">
-      <%= link_to courses_path, class: 'nav-link' do %>
-      <%= glyph 'calendar fa-fw' %>
-      Classes
-      <% end %>
-    </li>
-    <li class="<%= nav_item_classes(weights_path) %>">
-      <%= link_to weights_path, class: 'nav-link' do %>
-      <%= glyph 'line-chart fa-fw' %>
-      Weight
-      <% end %>
-    </li>
-    <li class="<%= nav_item_classes(user_push_up_challenge_entries_path(current_user)) %>">
-      <%= link_to user_push_up_challenge_entries_path(current_user), class: 'nav-link' do %>
-      <%= glyph 'list-ul fa-fw' %>
-      100 Push-Ups
-      <% end %>
-    </li>
-  </ul>
-  <ul class="nav navbar-nav pull-right">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-	<%= glyph 'user fa-fw' %>
-	<%= current_user.username %>
-      </a>
-      <div class="dropdown-menu">
-	<%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
-	<%= glyph 'cog fa-fw' %>
-	Account
+  <div class="hidden-sm-up" id="collapsedNavbar">
+    <ul class="nav navbar-nav">
+      <li class="nav-item dropdown">
+	<%= link_to '#', class: 'nav-link', role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false } do %>
+        <%= glyph 'bars fa-fw' %>
 	<% end %>
-	<%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
-	<%= glyph 'sign-out fa-fw' %>
-	Sign Out
+	<div class="dropdown-menu">
+	  <% main_menu_links.each do |url, title, icon| %>
+	  <%= link_to url, class: dropdown_nav_link_classes(url) do %>
+	  <%= glyph "#{icon} fa-fw" %>
+	  <%= title %>
+	  <% end %>
+	  <% end %>
+
+	  <div class="dropdown-divider"></div>
+	  <h6 class="dropdown-header">
+	    <%= glyph 'user fa-fw' %>
+	    <%= current_user.username %>
+	  </h6>
+
+	  <%= link_to edit_user_registration_path, class: dropdown_nav_link_classes(edit_user_registration_path) do %>
+	  <%= glyph 'cog fa-fw' %>
+	  Account
+	  <% end %>
+	  
+	  <%= link_to destroy_user_session_path, method: :delete, class: dropdown_nav_link_classes(destroy_user_session_path) do %>
+	  <%= glyph 'sign-out fa-fw' %>
+	  Sign Out
+	  <% end %>
+	</div>
+      </li>
+    </ul>
+  </div>
+  <div class="hidden-md-down" id="expandedNavbar">
+    <ul class="nav navbar-nav">
+      <% main_menu_links.each do |url, title, icon| %>
+      <li class="<%= nav_item_classes(url) %>">
+	<%= link_to url, class: 'nav-link' do %>
+	<%= glyph "#{icon} fa-fw" %>
+	<%= title %>
 	<% end %>
-      </div>
-    </li>
-  </ul>
+      </li>
+      <% end %>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li class="nav-item dropdown">
+	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+	  <%= glyph 'user fa-fw' %>
+	  <%= current_user.username %>
+	</a>
+	<div class="dropdown-menu">
+	  <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+	  <%= glyph 'cog fa-fw' %>
+	  Account
+	  <% end %>
+	  <%= link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do %>
+	  <%= glyph 'sign-out fa-fw' %>
+	  Sign Out
+	  <% end %>
+	</div>
+      </li>
+    </ul>
+  </div>
 </nav>
