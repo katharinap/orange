@@ -1,6 +1,4 @@
 class ExerciseChart < LazyHighCharts::HighChart
-  delegate :url_helpers, to: 'Rails.application.routes'
-
   def initialize(*users)
     super()
     @multi_user = users.size > 1
@@ -8,6 +6,7 @@ class ExerciseChart < LazyHighCharts::HighChart
     users.each_with_index do |user, idx|
       add_series(user.sit_ups, idx)
       add_series(user.push_ups, idx)
+      add_series(user.push_up_challenge_entries.done, idx)
     end
   end
 
@@ -30,13 +29,13 @@ class ExerciseChart < LazyHighCharts::HighChart
   end
 
   def label_name(exercise)
-    base = exercise.type.pluralize.titleize
+    base = exercise.chart_label_name
     return base unless @multi_user
     "#{base} (#{exercise.user.login})"
   end
 
   def dash_style(exercise)
-    exercise.type == 'PushUp' ? 'Solid' : 'ShortDash'
+    exercise.chart_line_style
   end
 
   def color(exercise, user_idx)
@@ -49,17 +48,6 @@ class ExerciseChart < LazyHighCharts::HighChart
   end
 
   def exercise_data(exercises)
-    exercises.map do |e|
-      {
-        x: milliseconds(e.date),
-        y: e.repetitions,
-        url: url_helpers.edit_exercise_path(e)
-      }
-    end
-  end
-
-  def milliseconds(date)
-    date_time = date.to_datetime
-    date_time.to_i * 1000
+    exercises.map(&:chart_data)
   end
 end

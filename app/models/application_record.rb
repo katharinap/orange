@@ -10,4 +10,9 @@ class ApplicationRecord < ActiveRecord::Base
     #cc0000
     #edd400
   ).freeze
+
+  def milliseconds(date)
+    date_time = date.to_datetime
+    date_time.to_i * 1000
+  end
 end

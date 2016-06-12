@@ -16,4 +16,8 @@ class PushUp < Exercise
   def self.model_name
     Exercise.model_name
   end
+
+  def chart_line_style
+    'ShortDash'
+  end
 end

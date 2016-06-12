@@ -17,7 +17,24 @@ class PushUpChallengeEntry < ApplicationRecord
   belongs_to :user
   serialize :sets
 
+  scope :done, -> { where.not(done_at: nil) }
+
   def total_reps
     sets.map(&:to_i).reduce(:+)
+  end
+
+  def chart_label_name
+    'Push Up Challenge'
+  end
+
+  def chart_data
+    {
+      x: milliseconds(done_at),
+      y: total_reps
+    }
+  end
+
+  def chart_line_style
+    'Dot'
   end
 end

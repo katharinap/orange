@@ -28,4 +28,18 @@ class Exercise < ApplicationRecord
                             }
 
   validates :date, presence: true
+
+  delegate :url_helpers, to: 'Rails.application.routes'
+
+  def chart_label_name
+    type.pluralize.titleize
+  end
+
+  def chart_data
+    {
+      x: milliseconds(date),
+      y: repetitions,
+      url: url_helpers.edit_exercise_path(self)
+    }
+  end
 end

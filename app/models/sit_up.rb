@@ -16,4 +16,8 @@ class SitUp < Exercise
   def self.model_name
     Exercise.model_name
   end
+
+  def chart_line_style
+    'Solid'
+  end
 end
