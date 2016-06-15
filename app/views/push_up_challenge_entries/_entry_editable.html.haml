@@ -2,9 +2,9 @@
   .card-block
     %h4.card-title
       .row
-        .col-xs-9
+        .col-xs-8
           = "Week #{entry.week}, Day #{entry.day}"
-        .col-xs-2
+        .col-xs-4
           %strong
             = sigma
           = entry.total_reps
@@ -18,16 +18,16 @@
               Sec
           .row
             .form-group
-              .col-xs-1
+              .col-xs-12.col-md-2
                 %label Sets
               - entry.sets.each do |reps|
-                .col-xs-2
+                .col-xs-12.col-md-2
                   %input{ type: 'number', name: 'push_up_challenge_entry[sets][]', value: reps, class: 'form-control' }
           .row
             .form-group
-              .col-xs-1
+              .col-xs-12.col-md-2
                 %label Date
-              .col-xs-11
+              .col-xs-12.col-md-10
                 = f.input :done_at, as: :date_picker, label: false, input_html: { value: @today }
           .form-actions
             = f.button :submit, 'Done'

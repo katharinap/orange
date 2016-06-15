@@ -3,9 +3,9 @@
   .card-block{ data: { toggle: 'collapse', target: "##{id}" }, aria: { expanded: false, controls: id} }
     %h4.card-title
       .row
-        .col-xs-9
+        .col-xs-8
           = "Week #{entry.week}, Day #{entry.day}"
-        .col-xs-2
+        .col-xs-3
           %strong
             = sigma
           = entry.total_reps
