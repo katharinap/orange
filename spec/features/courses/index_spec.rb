@@ -37,7 +37,7 @@ RSpec.describe 'course overview', type: :feature, js: true do
     within('#course-form') do
       fill_in 'Date', with: '2016-05-10'
       page.execute_script %{ $("a.ui-state-default:contains('10')").trigger("click") }
-      click_button 'Save Course'
+      click_button 'Create Course'
     end
 
     wait_for_ajax
@@ -56,7 +56,7 @@ RSpec.describe 'course overview', type: :feature, js: true do
     within('#course-form') do
       fill_in 'Date', with: '2016-05-10'
       page.execute_script %{ $("a.ui-state-default:contains('11')").trigger("click") }
-      click_button 'Save Course'
+      click_button 'Update Course'
     end
 
     wait_for_ajax

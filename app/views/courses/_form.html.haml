@@ -1,6 +1,6 @@
 - url = course.persisted? ? url_for(controller: 'courses', action: 'update') : url_for(controller: 'courses', action: 'create')
 - method = course.persisted? ? :put : :post
-= simple_form_for :course, url: url, method: method do |f|
+= simple_form_for course, url: url, method: method, remote: true do |f|
   = f.input :user_id, as: :hidden
   .form-inputs
     = f.input :name, required: true

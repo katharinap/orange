@@ -31,22 +31,26 @@ class CoursesController < ApplicationController
   end
 
   def update
-    if @course.update(course_params)
-      flash[:notice] = 'Course successfully updated.'
-      redirect_to courses_path
-    else
-      render :edit
+    respond_to do |format|
+      if @course.update(course_params)
+        flash[:notice] = 'Course successfully updated.'
+        format.js { render :refresh }
+      else
+        format.js { render :edit }
+      end
     end
   end
 
   def create
-    @course = Course.new(course_params)
-    if @course.save
-      flash[:notice] = 'Course successfully created.'
-    else
-      flash[:error] = 'Failed to create course.'
+    respond_to do |format|
+      @course = Course.new(course_params)
+      if @course.save
+        flash[:notice] = 'Course successfully created.'
+      else
+        flash[:error] = 'Failed to create course.'
+      end
+      format.js { render :refresh }
     end
-    redirect_to courses_path
   end
 
   def destroy
