@@ -30,7 +30,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
   it 'allows to create a new weight entry' do
     visit weights_path
     click_link 'Add Entry'
-    within('#weight-form') do
+    within('#form') do
       fill_in 'Weight', with: 100
       fill_in 'Date', with: '2016-01-01'
       page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
@@ -50,7 +50,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     visit weights_path
     user_stat = @user.user_stats.first
     page.execute_script %{ showModal({ options: { url: '/weights/#{user_stat.id}/edit'}}) }
-    within('#weight-form') do
+    within('#form') do
       fill_in 'Weight', with: 100
       fill_in 'Date', with: '2016-01-01'
       page.execute_script %{ $("a.ui-state-default:contains('28')").trigger("click") }
@@ -70,7 +70,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     visit weights_path
     user_stat = @user.user_stats.first
     page.execute_script %{ showModal({ options: { url: '/weights/#{user_stat.id}/edit'}}) }
-    within('#weight-form') do
+    within('#form') do
       click_link 'Delete'
     end
     wait_for_ajax

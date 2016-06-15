@@ -27,7 +27,7 @@ class ExercisesController < ApplicationController
       if @exercise.update(exercise_params)
         set_chart
         flash[:notice] = 'Exercise successfully updated.'
-        format.js { render :chart }
+        format.js { render 'charts/refresh' }
       else
         @permitted = true
         format.js { render :edit }
@@ -44,7 +44,7 @@ class ExercisesController < ApplicationController
     end
     set_chart
     respond_to do |format|
-      format.js { render :chart }
+      format.js { render 'charts/refresh' }
     end
   end
 
@@ -53,7 +53,7 @@ class ExercisesController < ApplicationController
       @exercise.destroy
       flash[:notice] = 'Exercise successfully deleted.'
       set_chart
-      format.js { render :chart }
+      format.js { render 'charts/refresh' }
     end
   end
 

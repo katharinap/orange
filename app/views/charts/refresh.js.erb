@@ -1,0 +1,3 @@
+$("#form-modal").modal("hide");
+$("#graph").html("<%= escape_javascript(render('charts/show', locals: { chart: @chart })) %>");
+$("#flash-messages").html("<%= escape_javascript(bootstrap_flash) %>");

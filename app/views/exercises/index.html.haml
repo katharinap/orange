@@ -3,15 +3,6 @@
   = link_to 'Add Sit-Up', new_user_exercise_path(current_user, type: 'SitUp'), remote: true, class: 'btn btn-secondary', id: 'new-sit-up'
 
 #graph.big-plot
-
-#exercise-modal.modal.fade
-  .modal-dialog{ role: 'document' }
-    .modal-content
-      .modal-header
-        %button{ type: 'button', class: 'close', data: { dismiss: 'modal' }, aria: { label: 'Close' }}
-          %span{ aria: { hidden: true }}
-            = '&times'.html_safe
-        %h4{ class: 'modal-title', id: 'exercise-modal-title' }
-          Edit
-      .modal-body
-        #exercise-form
+  = render partial: 'charts/show'
+  
+= render partial: 'layouts/form_modal'

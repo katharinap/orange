@@ -35,7 +35,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
   it 'allows to create a new push-up entry' do
     visit exercises_path
     click_link 'Add Push-Up'
-    within('#exercise-form') do
+    within('#form') do
       fill_in 'Repetitions', with: 17
       fill_in 'Duration', with: 180
       fill_in 'Date', with: '2016-01-01'
@@ -54,7 +54,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
   it 'allows to create a new sit-up entry' do
     visit exercises_path
     click_link 'Add Sit-Up'
-    within('#exercise-form') do
+    within('#form') do
       fill_in 'Repetitions', with: 27
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
@@ -74,7 +74,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     visit exercises_path
     push_up = @user.push_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{push_up.id}/edit'}}) }
-    within('#exercise-form') do
+    within('#form') do
       fill_in 'Repetitions', with: 27
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
@@ -95,7 +95,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     visit exercises_path
     sit_up = @user.sit_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{sit_up.id}/edit'}}) }
-    within('#exercise-form') do
+    within('#form') do
       fill_in 'Repetitions', with: 27
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
@@ -116,7 +116,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     visit exercises_path
     push_up = @user.push_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{push_up.id}/edit'}}) }
-    within('#exercise-form') do
+    within('#form') do
       click_link 'Delete'
     end
     wait_for_ajax
@@ -129,7 +129,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
     visit exercises_path
     sit_up = @user.sit_ups.first
     page.execute_script %{ showModal({ options: { url: '/exercises/#{sit_up.id}/edit'}}) }
-    within('#exercise-form') do
+    within('#form') do
       click_link 'Delete'
     end
     wait_for_ajax

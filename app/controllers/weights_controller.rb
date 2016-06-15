@@ -24,7 +24,7 @@ class WeightsController < ApplicationController
     end
     set_chart
     respond_to do |format|
-      format.js { render :chart }
+      format.js { render 'charts/refresh' }
     end
   end
 
@@ -40,7 +40,7 @@ class WeightsController < ApplicationController
       if @user_stat.update(user_stat_params)
         set_chart
         flash[:notice] = 'Entry successfully updated.'
-        format.js { render :chart }
+        format.js { render 'charts/refresh' }
       else
         @permitted = true
         format.js { render :edit }
@@ -53,7 +53,7 @@ class WeightsController < ApplicationController
       @user_stat.destroy
       flash[:notice] = 'Entry successfully deleted.'
       set_chart
-      format.js { render :chart }
+      format.js { render 'charts/refresh' }
     end
   end
 
