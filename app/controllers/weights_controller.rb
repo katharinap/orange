@@ -2,13 +2,7 @@ class WeightsController < ApplicationController
   before_action :set_user_stat, except: %i(index new create)
 
   def index
-    @multi_user = !params[:user_id]
-    if @multi_user
-      @chart = WeightChart.new(*User.relevant)
-    else
-      @user = User.find(params[:user_id])
-      @chart = WeightChart.new(@user)
-    end
+    set_chart
   end
 
   def new
@@ -28,7 +22,10 @@ class WeightsController < ApplicationController
     else
       flash[:error] = 'Failed to add entry'
     end
-    redirect_to weights_path
+    set_chart
+    respond_to do |format|
+      format.js { render :chart }
+    end
   end
 
   def edit
@@ -39,24 +36,41 @@ class WeightsController < ApplicationController
   end
 
   def update
-    if @user_stat.update(user_stat_params)
-      flash[:notice] = 'Entry successfully updated.'
-      redirect_to weights_path
-    else
-      render :edit
+    respond_to do |format|
+      if @user_stat.update(user_stat_params)
+        set_chart
+        flash[:notice] = 'Entry successfully updated.'
+        format.js { render :chart }
+      else
+        @permitted = true
+        format.js { render :edit }
+      end
     end
   end
 
   def destroy
-    @user_stat.destroy
-    flash[:notice] = 'Entry successfully deleted.'
-    redirect_to weights_path
+    respond_to do |format|
+      @user_stat.destroy
+      flash[:notice] = 'Entry successfully deleted.'
+      set_chart
+      format.js { render :chart }
+    end
   end
 
   private
 
   def set_user_stat
     @user_stat = UserStat.find(params[:id])
+  end
+
+  def set_chart
+    @multi_user = !params[:user_id]
+    if @multi_user
+      @chart = WeightChart.new(*User.relevant)
+    else
+      @user = User.find(params[:user_id])
+      @chart = WeightChart.new(@user)
+    end
   end
 
   def user_stat_params

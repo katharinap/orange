@@ -2,8 +2,7 @@
   = link_to 'Add Entry', new_user_weight_path(current_user), remote: true, class: 'btn btn-secondary', id: 'new-weight'
 
 #graph.big-plot
-  = high_chart("plot", @chart) do |chart|
-    = raw "options.plotOptions.series.point.events.click = function() { showModal(this); }"
+  = render 'chart'
 
 #weight-modal.modal.fade
   .modal-dialog{ role: 'document' }

@@ -1,6 +1,6 @@
 - url = user_stat.persisted? ? url_for(controller: 'weights', action: 'update') : url_for(controller: 'weights', action: 'create')
 - method = user_stat.persisted? ? :put : :post
-= simple_form_for :user_stat, url: url, method: method do |f|
+= simple_form_for user_stat, url: url, method: method, remote: true do |f|
   = f.input :user_id, as: :hidden
   .form-inputs
     = f.input :weight, required: true
@@ -8,4 +8,4 @@
   .form-actions
     = f.button :submit, class: 'btn btn-secondary'
     - if user_stat.persisted?
-      = link_to 'Delete', weight_path(user_stat), method: :delete, class: 'btn btn-danger'
+      = link_to 'Delete', weight_path(user_stat), method: :delete, remote: true, class: 'btn btn-danger'

@@ -2,13 +2,7 @@ class ExercisesController < ApplicationController
   before_action :set_exercise, except: %i(index new create)
 
   def index
-    @multi_user = !params[:user_id]
-    if @multi_user
-      @chart = ExerciseChart.new(*User.relevant)
-    else
-      @user = User.find(params[:user_id])
-      @chart = ExerciseChart.new(@user)
-    end
+    set_chart
   end
 
   def edit
@@ -29,11 +23,15 @@ class ExercisesController < ApplicationController
   end
 
   def update
-    if @exercise.update(exercise_params)
-      flash[:notice] = 'Exercise successfully updated.'
-      redirect_to exercises_path
-    else
-      render :edit
+    respond_to do |format|
+      if @exercise.update(exercise_params)
+        set_chart
+        flash[:notice] = 'Exercise successfully updated.'
+        format.js { render :chart }
+      else
+        @permitted = true
+        format.js { render :edit }
+      end
     end
   end
 
@@ -44,19 +42,35 @@ class ExercisesController < ApplicationController
     else
       flash[:error] = 'Failed to create exercise.'
     end
-    redirect_to exercises_path
+    set_chart
+    respond_to do |format|
+      format.js { render :chart }
+    end
   end
 
   def destroy
-    @exercise.destroy
-    flash[:notice] = 'Exercise successfully deleted.'
-    redirect_to exercises_path
+    respond_to do |format|
+      @exercise.destroy
+      flash[:notice] = 'Exercise successfully deleted.'
+      set_chart
+      format.js { render :chart }
+    end
   end
 
   private
 
   def set_exercise
     @exercise = Exercise.find(params[:id])
+  end
+
+  def set_chart
+    @multi_user = !params[:user_id]
+    if @multi_user
+      @chart = ExerciseChart.new(*User.relevant)
+    else
+      @user = User.find(params[:user_id])
+      @chart = ExerciseChart.new(@user)
+    end
   end
 
   def exercise_params

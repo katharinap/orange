@@ -40,7 +40,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
       fill_in 'Duration', with: 180
       fill_in 'Date', with: '2016-01-01'
       page.execute_script %{ $("a.ui-state-default:contains('28')").trigger("click") }
-      click_button 'Save Exercise'
+      click_button 'Create Exercise'
     end
     wait_for_ajax
     expect(@user.push_ups.count).to eq(11)
@@ -59,7 +59,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
       page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
-      click_button 'Save Exercise'
+      click_button 'Create Exercise'
     end
     wait_for_ajax
     expect(@user.sit_ups.count).to eq(11)
@@ -79,7 +79,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
       page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
-      click_button 'Save Exercise'
+      click_button 'Update Exercise'
     end
     wait_for_ajax
     expect(@user.push_ups.count).to eq(10)
@@ -100,7 +100,7 @@ RSpec.describe 'exercises overview', type: :feature, js: true do
       fill_in 'Duration', with: 150
       fill_in 'Date', with: '2016-02-01'
       page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
-      click_button 'Save Exercise'
+      click_button 'Update Exercise'
     end
     wait_for_ajax
     expect(@user.sit_ups.count).to eq(10)

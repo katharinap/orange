@@ -32,7 +32,7 @@ class WeightChart < LazyHighCharts::HighChart
   end
 
   def weight_data(user_stats)
-    user_stats.map do |s|
+    user_stats.order(:date).map do |s|
       {
         x: milliseconds(s.date),
         y: s.weight.to_f,

@@ -34,7 +34,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
       fill_in 'Weight', with: 100
       fill_in 'Date', with: '2016-01-01'
       page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
-      click_button 'Save User stat'
+      click_button 'Create User stat'
     end
 
     wait_for_ajax
@@ -54,7 +54,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
       fill_in 'Weight', with: 100
       fill_in 'Date', with: '2016-01-01'
       page.execute_script %{ $("a.ui-state-default:contains('28')").trigger("click") }
-      click_button 'Save User stat'
+      click_button 'Update User stat'
     end
 
     wait_for_ajax
