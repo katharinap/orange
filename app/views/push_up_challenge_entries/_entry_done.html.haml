@@ -3,13 +3,13 @@
   .card-block{ data: { toggle: 'collapse', target: "##{id}" }, aria: { expanded: false, controls: id} }
     %h4.card-title
       .row
-        .col-xs-8
+        .col-xs-7.col-md-8
           = "Week #{entry.week}, Day #{entry.day}"
         .col-xs-3
           %strong
             = sigma
           = entry.total_reps
-        .col-xs-1.pull-right
+        .col-xs-2.col-md-1.pull-right
           = glyph 'check-square-o'
   .collapse{ id: id }
     .card-block
