@@ -64,7 +64,7 @@ class WeightsController < ApplicationController
   end
 
   def set_chart
-    @multi_user = !params[:user_id]
+    @multi_user = true          # !params[:user_id]
     if @multi_user
       @chart = WeightChart.new(*User.relevant)
     else
