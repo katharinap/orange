@@ -1,7 +1,8 @@
 .push-up-challenge-entries
   .push-up-challenge-entries-done
     = render partial: 'entry_done', collection: @entries_done, as: :entry
-  .push-up-challenge-entries-next
-    = render partial: 'entry_editable', locals: { entry: @editable_entry }
+  - if @editable_entry
+    .push-up-challenge-entries-next
+      = render partial: 'entry_editable', locals: { entry: @editable_entry }
   .push-up-challenge-entries-to-do
     = render partial: 'entry_to_do', collection: @entries_to_do, as: :entry
