@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'weight overview', type: :feature, js: true do
   before :each do
     @user = create(:user)
-    date = Date.current
+    date = Date.new(2016, 1, 1)
     weight = BigDecimal.new(123)
     (1..10).each do |i|
       create(:user_stat, user: @user, date: date, weight: weight)
@@ -32,7 +32,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     click_link 'Add Entry'
     within('#form') do
       fill_in 'Weight', with: 100
-      fill_in 'Date', with: '2016-01-01'
+      fill_in 'Date', with: '2016-05-01'
       page.execute_script %{ $("a.ui-state-default:contains('27')").trigger("click") }
       click_button 'Create User stat'
     end
@@ -41,7 +41,7 @@ RSpec.describe 'weight overview', type: :feature, js: true do
     user_stats = User.find(@user.id).user_stats
     expect(user_stats.count).to eq(11)
     expect(user_stats.last.weight).to eq(100)
-    expect(user_stats.last.date).to eq(Date.new(2016, 1, 27))
+    expect(user_stats.last.date).to eq(Date.new(2016, 5, 27))
     expect(page).to have_content 'Entry successfully created.'
     expect(current_path).to eq(weights_path)
   end

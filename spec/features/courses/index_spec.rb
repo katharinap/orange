@@ -10,7 +10,7 @@ RSpec.describe 'course overview', type: :feature, js: true do
     c5 = { name: 'Krav Weapons', days: [6, 13, 20] }
     [c1, c2, c3, c4, c5].each do |course|
       course[:days].each do |day|
-        date = Date.new(2016, 5, day)
+        date = Date.new(2016, 4, day)
         Course.create(name: course[:name], date: date, user: @user)
       end
     end

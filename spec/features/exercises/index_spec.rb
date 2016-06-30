@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'exercises overview', type: :feature, js: true do
   before :each do
     @user = create(:user)
-    date = Date.current
+    date = Date.new(2016, 1, 1)
     reps = 20
     (1..10).each do |i|
       create(:push_up, user: @user, date: date, repetitions: reps)
