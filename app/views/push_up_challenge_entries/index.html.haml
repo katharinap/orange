@@ -1,6 +1,6 @@
 .push-up-challenge-entries
   .push-up-challenge-entries-done
-    = render partial: 'entry_done', collection: @entries_done, as: :entry
+    = render partial: 'entry_done', collection: @entries_done.sort_by(&:done_at), as: :entry
   - if @editable_entry
     .push-up-challenge-entries-next
       = render partial: 'entry_editable', locals: { entry: @editable_entry }
