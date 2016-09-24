@@ -31,6 +31,6 @@ class PushUpChallengeEntriesController < ApplicationController
 
   def entry_params
     params.require(:push_up_challenge_entry)
-          .permit(:week, :day, :user_id, :done_at, sets: [])
+          .permit(:week, :day, :rest, :user_id, :done_at, sets: [])
   end
 end
