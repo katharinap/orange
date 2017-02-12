@@ -68,7 +68,7 @@ class WeightsController < ApplicationController
     if @multi_user
       @chart = WeightChart.new(*User.relevant)
     else
-      @user = User.find(params[:user_id])
+      @user = current_user
       @chart = WeightChart.new(@user)
     end
   end

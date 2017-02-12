@@ -13,5 +13,6 @@
 class UserStat < ApplicationRecord
   belongs_to :user
 
+  scope :recent, -> { where("created_at > ?", 2.months.ago) }
   validates :date, presence: true
 end

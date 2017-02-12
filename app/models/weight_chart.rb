@@ -6,7 +6,7 @@ class WeightChart < LazyHighCharts::HighChart
     @multi_user = users.size > 1
     set_options
     users.each_with_index do |user, idx|
-      add_series(user.user_stats, idx)
+      add_series(user.user_stats.recent, idx)
     end
   end
 

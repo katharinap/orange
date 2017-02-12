@@ -4,9 +4,9 @@ class ExerciseChart < LazyHighCharts::HighChart
     @multi_user = users.size > 1
     set_options
     users.each_with_index do |user, idx|
-      add_series(user.sit_ups.order(:date), idx)
-      add_series(user.push_ups.order(:date), idx)
-      add_series(user.push_up_challenge_entries.done.order(:done_at), idx)
+      add_series(user.sit_ups.recent.order(:date), idx)
+      add_series(user.push_ups.recent.order(:date), idx)
+      add_series(user.push_up_challenge_entries.done.recent.order(:done_at), idx)
     end
   end
 
@@ -20,7 +20,7 @@ class ExerciseChart < LazyHighCharts::HighChart
 
   def add_series(exercises, user_idx)
     return if exercises.empty?
-    series(type: @multi_user ? 'line' : 'column',
+    series(type: 'line',
            name: label_name(exercises.first),
            data: exercise_data(exercises),
            dashStyle: dash_style(exercises.first),
@@ -42,9 +42,14 @@ class ExerciseChart < LazyHighCharts::HighChart
     color_idx = if @multi_user
                   user_idx.remainder(ApplicationRecord::COLORS.size)
                 else
-                  exercise.type == 'PushUp' ? 0 : 1
+                  type_color_idx(exercise)
                 end
     ApplicationRecord::COLORS[color_idx]
+  end
+
+  def type_color_idx(exercise)
+    return 2 unless exercise.respond_to?(:type)
+    exercise.type == 'PushUp' ? 0 : 1
   end
 
   def exercise_data(exercises)
