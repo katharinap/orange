@@ -18,7 +18,7 @@ class PushUpChallengeEntry < ApplicationRecord
   serialize :sets
 
   scope :done, -> { where.not(done_at: nil) }
-  scope :recent, -> { where("done_at > ?", 2.months.ago) }
+  scope :recent, -> { where('done_at > ?', 2.months.ago) }
 
   def total_reps
     sets.map(&:to_i).reduce(:+)

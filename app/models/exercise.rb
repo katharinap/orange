@@ -15,7 +15,7 @@
 class Exercise < ApplicationRecord
   belongs_to :user
 
-  scope :recent, -> { where("created_at > ?", 2.months.ago) }
+  scope :recent, -> { where('created_at > ?', 2.months.ago) }
 
   validates :repetitions, numericality:
                             {
